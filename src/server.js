@@ -8,7 +8,7 @@ import routes from './components/Routes';
 const server = new Server();
 server.connection({port: 3000});
 server.start(() => {
-  console.log('listening');
+  console.log('listening at port 3000');
 });
 
 server.register(Inert, function () {});
@@ -35,12 +35,13 @@ server.route({
   method: 'GET',
   path: '/{param*}',
   handler: (request, reply) => {
-    var path = request.path || '/';
+    const path = request.path || '/';
     Router.run(routes, path, (Root) => {
-      var reactString = React.renderToString(<Root/>);
-      var html = `
+      const reactString = React.renderToString(<Root/>);
+      const bundleUrl = process.env.NODE_ENV === 'production' ? 'bundle.js' : 'http://localhost:3001/assets/bundle.js'; 
+      const html = `
         <div id="content">${reactString}</div>
-        <script src="bundle.js"></script>
+        <script src="${bundleUrl}"></script>
       `;
       reply(html);
     });
