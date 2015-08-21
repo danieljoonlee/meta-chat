@@ -11,7 +11,7 @@ server.start(() => {
   console.log('listening at port 3000');
 });
 
-server.register(Inert, function () {});
+server.register(Inert, ()=>{});
 
 server.route({
   method: 'GET',
@@ -47,3 +47,12 @@ server.route({
     });
   }
 });
+
+server.route({
+  method: 'GET',
+  path: '/favicon.ico',
+  handler: (request, reply) => {
+    reply.file(path.join(__dirname, '../static/favicon.ico'));
+  }
+});
+
