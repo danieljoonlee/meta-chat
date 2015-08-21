@@ -7,6 +7,7 @@
     "start": "node babel.server.js",
     "dev-server": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline --port 3001 --config ./webpack.config.js --output-public-path http://localhost:3001/assets/",
     "dev": "concurrent --kill-others \"npm run dev-server\" \"npm start\"",
+    "prod": "NODE_ENV=production npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
