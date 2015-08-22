@@ -3,7 +3,9 @@ import React from 'react';
 import {Server} from 'hapi';
 import Inert from 'inert';
 import Router from 'react-router';
+import Location from 'react-router/lib/Location';
 import routes from './components/Routes';
+import universalRouter from './universalRouter';
 
 const server = new Server();
 server.connection({port: 3000});
@@ -36,12 +38,13 @@ server.route({
   path: '/{param*}',
   handler: (request, reply) => {
     const path = request.path || '/';
-    Router.run(routes, path, (Root) => {
-      const reactString = React.renderToString(<Root/>);
+    const location = new Location(path);
+    universalRouter(location).then((component) => {
+      const reactString = React.renderToString(component);
       const bundleUrl = process.env.NODE_ENV === 'production' ? 'bundle.js' : 'http://localhost:3001/assets/bundle.js'; 
       const html = `
         <div id="content">${reactString}</div>
-        <script src="${bundleUrl}"></script>
+        <script src="http://localhost:3001/assets/bundle.js"></script>
       `;
       reply(html);
     });
