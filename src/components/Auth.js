@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
 
 export default class Auth extends Component {
   render() {
@@ -7,7 +8,7 @@ export default class Auth extends Component {
         Username: <input/>
         Password: <input/>
         <button>Sign in</button>
-        or <a href="#">Register</a>
+        or <Link to="register">Register</Link>
       </div>
     );
   }

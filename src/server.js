@@ -44,7 +44,7 @@ server.route({
       const bundleUrl = process.env.NODE_ENV === 'production' ? 'bundle.js' : 'http://localhost:3001/assets/bundle.js'; 
       const html = `
         <div id="content">${reactString}</div>
-        <script src="http://localhost:3001/assets/bundle.js"></script>
+        <script src="${bundleUrl}"></script>
       `;
       reply(html);
     });

@@ -1,8 +1,8 @@
 import React from 'react';
-import Router, {HistoryLocation} from 'react-router';
+import {history} from 'react-router/lib/BrowserHistory';
+import universalRouter from './universalRouter';
 import routes from './components/Routes';
-import App from './components/App';
 
-Router.run(routes, HistoryLocation, (Root) => {
-  React.render(<Root/>, document.getElementById('content'));
+universalRouter(routes, history).then((component) => {
+  React.render(component, document.getElementById('content'));
 });

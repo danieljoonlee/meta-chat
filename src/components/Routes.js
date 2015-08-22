@@ -1,7 +1,10 @@
 import React from 'react';
 import {Route} from 'react-router';
-import App from './App';
+import MainContainer from '../containers/MainContainer';
+import Register from './Register';
 
 export default (
-  <Route path="/" component={App}></Route>
+  <Route path="/" component={MainContainer}>
+    <Route path="register" component={Register}/>
+  </Route>
 );
