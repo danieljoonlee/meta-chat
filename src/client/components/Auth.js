@@ -8,7 +8,7 @@ export default class Auth extends Component {
         Username: <input/>
         Password: <input/>
         <button>Sign in</button>
-        or <Link to="register">Register</Link>
+        or <Link to="/register">Register</Link>
       </div>
     );
   }
