@@ -4,8 +4,8 @@ import {Server} from 'hapi';
 import Inert from 'inert';
 import Router from 'react-router';
 import Location from 'react-router/lib/Location';
-import routes from './components/Routes';
-import universalRouter from './universalRouter';
+import routes from '../client/components/Routes';
+import universalRouter from '../universalRouter';
 
 const server = new Server();
 server.connection({port: 3000});
