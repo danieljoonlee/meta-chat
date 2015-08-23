@@ -14,12 +14,15 @@
   "license": "ISC",
   "dependencies": {
     "babel": "^5.8.21",
+    "exports-loader": "^0.6.2",
     "hapi": "^9.0.1",
+    "imports-loader": "^0.6.4",
     "inert": "^3.0.1",
     "react": "^0.13.3",
     "react-redux": "^0.8.2",
     "react-router": "^1.0.0-beta3",
-    "redux": "^1.0.0"
+    "redux": "^1.0.0",
+    "whatwg-fetch": "^0.9.0"
   },
   "devDependencies": {
     "babel-core": "^5.8.22",
