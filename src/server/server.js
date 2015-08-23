@@ -6,14 +6,28 @@ import Router from 'react-router';
 import Location from 'react-router/lib/Location';
 import routes from '../client/components/Routes';
 import universalRouter from '../universalRouter';
+import mongoose from 'mongoose';
 
+//connect database
+mongoose.connect('mongodb://localhost/red');
+
+//start server
 const server = new Server();
 server.connection({port: 3000});
 server.start(() => {
   console.log('listening at port 3000');
 });
 
+//static files plugin
 server.register(Inert, ()=>{});
+
+
+//////////////////////
+//      ROUTES      //
+//////////////////////
+import usersController from './controllers/users';
+
+usersController(server);
 
 server.route({
   method: 'GET',
