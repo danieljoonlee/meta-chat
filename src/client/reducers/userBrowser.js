@@ -1,7 +1,8 @@
 import {REQUEST_USERS, RECEIVE_USERS} from '../actions/constants';
 
 const defaultState = {
-  usersLoading: false
+  usersLoading: false,
+  users: []
 }
 
 export default (state=defaultState, action) => {

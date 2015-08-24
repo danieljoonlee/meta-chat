@@ -3,14 +3,16 @@ import UserFilter from './UserFilter';
 import UserBox from './UserBox';
 
 export default class UserBrowser extends Component {
-  render() {
-    const users = ['tom', 'joe', 'mark'];
+  componentDidMount() {
+    this.props.fetchUsers();
+  }
 
+  render() {
     return (
       <div>
         <h2>Browse Users</h2>
         <UserFilter/>
-        {users.map(name => <UserBox username={name} key={name}/>)}
+        {this.props.users.map(({username}) => <UserBox username={username} key={username}/>)}
       </div>
     );
   }

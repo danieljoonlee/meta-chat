@@ -17,7 +17,7 @@ export function fetchUsers() {
   return dispatch => {
     dispatch(requestUsers);
     return fetch('/api/users')
-      .then(response => response.json)
+      .then(response => response.json())
       .then(json => dispatch(receiveUsers(json)));
   }
 }

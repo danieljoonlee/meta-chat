@@ -9,4 +9,14 @@ export default function(server) {
       user.save((err, user) => { reply(user); });
     }
   });
+
+  server.route({
+    method: 'GET',
+    path: '/api/users',
+    handler: (request, reply) => {
+      User.find((err, users) => {
+        reply(users);
+      });
+    }
+  });
 }
