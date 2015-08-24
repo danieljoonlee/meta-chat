@@ -1,0 +1,4 @@
+export default {
+  REQUEST_USERS: 'REQUEST_USERS',
+  RECEIVE_USERS: 'RECEIVE_USERS'
+}
