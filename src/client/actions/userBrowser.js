@@ -1,4 +1,5 @@
 import {REQUEST_USERS, RECEIVE_USERS} from './constants';
+import fetch from 'isomorphic-fetch';
 
 export function requestUsers() {
   return {

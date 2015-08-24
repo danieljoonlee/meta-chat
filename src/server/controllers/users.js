@@ -1,6 +1,6 @@
 import User from '../models/User';
 
-export default function(server) {
+export default (server) => {
   server.route({
     method: 'POST',
     path: '/api/users',

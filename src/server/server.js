@@ -26,8 +26,10 @@ server.register(Inert, ()=>{});
 //      ROUTES      //
 //////////////////////
 import usersController from './controllers/users';
+import sessionsController from './controllers/sessions';
 
 usersController(server);
+sessionsController(server);
 
 server.route({
   method: 'GET',

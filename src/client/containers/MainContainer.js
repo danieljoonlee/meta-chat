@@ -1,11 +1,10 @@
-import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import Main from '../components/Main';
+import login from '../actions/auth';
 
-function mapStateToProps(state) {
-  return {};
-}
 function mapDispatchToProps(dispatch) {
-  return {};
+  return bindActionCreators({login}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(state => state, mapDispatchToProps)(Main);
