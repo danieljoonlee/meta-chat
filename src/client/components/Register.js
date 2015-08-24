@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import 'isomorphic-fetch'
 
 export default class Register extends Component {
   render() {
