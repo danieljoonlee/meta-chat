@@ -9,11 +9,11 @@ const defaultState = {
 export default (state=defaultState, action) => {
   switch (action.type) {
     case BEGIN_LOGIN:
-      return {...state, loading: true};
+      return {...state, loading: true, error: ''};
     case LOGIN_SUCCESS:
       return {...state, loading: false, token: action.token};
     case LOGIN_FAILURE:
-      return {...state, error: 'wrong creds'};
+      return {...state, loading: false, error: 'wrong creds'};
     default:
       return state;
   }

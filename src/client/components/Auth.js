@@ -9,17 +9,23 @@ export default class Auth extends Component {
 
   render() {
     return (
-      <form onSubmit={this.login}>
-        Username: <input/>
-        Password: <input/>
-        <button>Sign in</button>
-        or <Link to="/register">Register</Link>
-      </form>
+      <div>
+        {this.props.error}
+        <form onSubmit={this.login}>
+          Username: <input name="username"/>
+          Password: <input name="password"/>
+          <button>Sign in</button>
+          or <Link to="/register">Register</Link>
+        </form>
+      </div>
     );
   }
 
   login(evt) {
     evt.preventDefault();
-    this.props.login('allen', 'passs');
+    const inputs = evt.target.querySelectorAll('input');
+    const username = inputs[0].value;
+    const password = inputs[1].value;
+    this.props.login(username, password);
   }
 }

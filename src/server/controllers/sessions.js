@@ -8,11 +8,8 @@ export default (server) => {
     method: 'POST',
     path: '/api/login',
     handler: (request, reply) => {
-      const username = request.payload.username;
-      const password = request.payload.password;
-
+      const {username, password} = JSON.parse(request.payload);
       User.findOne({username, password}, (err, user) => {
-        console.log(user);
         user ? reply(jwt.sign(user, secret)) : reply(null);
       });
     }

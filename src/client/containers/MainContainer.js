@@ -7,4 +7,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({login}, dispatch);
 }
 
-export default connect(state => state, mapDispatchToProps)(Main);
+export default connect(state => state.sessions, mapDispatchToProps)(Main);
