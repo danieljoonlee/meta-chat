@@ -5,7 +5,7 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import routes from './client/components/Routes';
 import userBrowserReducer from './client/reducers/userBrowser';
-import authReducer from './client/reducers/auth';
+import authReducer from './client/reducers/session';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const reducer = combineReducers({
