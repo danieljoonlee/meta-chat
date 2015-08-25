@@ -1,4 +1,4 @@
-import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE} from './constants';
+import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT} from './constants';
 import fetch from 'isomorphic-fetch';
 
 function beginLogin(){
@@ -7,10 +7,10 @@ function beginLogin(){
   }
 }
 
-function loginSuccess(token) {
+function loginSuccess(user) {
   return {
     type: LOGIN_SUCCESS,
-    token
+    user
   }
 }
 
@@ -20,16 +20,22 @@ function loginFailure() {
   }
 }
 
-export default function login(username, password) {
+export function logout() {
+  return {
+    type: LOGOUT
+  }
+}
+
+export function login(username, password) {
   return dispatch => {
     dispatch(beginLogin());
     return fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({username, password})
     })
-      .then(response => response.text())
-      .then(token => {
-        token ? dispatch(loginSuccess(token)) : dispatch(loginFailure());
+      .then(response => response.json())
+      .then(user => {
+        user.token ? dispatch(loginSuccess(user)) : dispatch(loginFailure());
       });
   }
 }

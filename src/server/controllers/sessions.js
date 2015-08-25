@@ -9,8 +9,8 @@ export default (server) => {
     path: '/api/login',
     handler: (request, reply) => {
       const {username, password} = JSON.parse(request.payload);
-      User.findOne({username, password}, (err, user) => {
-        user ? reply(jwt.sign(user, secret)) : reply(null);
+      User.findOne({username, password}).lean().exec((err, user) => {
+        user ? reply({...user, token: jwt.sign(user, secret)}) : reply({});
       });
     }
   });

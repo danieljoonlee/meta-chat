@@ -1,10 +1,10 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Main from '../components/Main';
-import login from '../actions/auth';
+import * as actionCreators from '../actions/auth';
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({login}, dispatch);
+  return bindActionCreators(actionCreators, dispatch);
 }
 
 export default connect(state => state.sessions, mapDispatchToProps)(Main);

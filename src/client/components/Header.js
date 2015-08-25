@@ -1,10 +1,26 @@
 import React, {Component} from 'react';
-import Auth from '../components/Auth';
+import Login from '../components/Login';
 
 export default class Header extends Component {
+  constructor() {
+    super();
+    this.logout = this.logout.bind(this);
+  }
+
   render() {
-    return (
-      <Auth {...this.props}/>
+    const welcome = (
+      <div>Welcome {this.props.user.username} | <a href="" onClick={this.logout}>Logout</a></div>
     );
+
+    return (
+      <div>
+        {this.props.user.username ? {welcome} : <Login {...this.props}/>}
+      </div>
+    );
+  }
+
+  logout(evt) {
+    evt.preventDefault();
+    this.props.logout();
   }
 }
