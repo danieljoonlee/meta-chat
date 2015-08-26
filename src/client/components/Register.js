@@ -23,6 +23,14 @@ export default class Register extends Component {
           <input name="passrepeat" type="password" id="js-register-password-repeat"/>
           <br/>
 
+          <label htmlFor="js-register-speaking">I speak: </label>
+          <input name="speaking" id="js-register-speaking"/>
+          <br/>
+
+          <label htmlFor="js-register-learning">I'm learning: </label>
+          <input name="learning" id="js-register-learning"/>
+          <br/>
+
           <button>Submit</button>
         </form>
       </div>

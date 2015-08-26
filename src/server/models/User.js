@@ -6,7 +6,9 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     select: false
-  }
+  },
+  speaking: String,
+  learning: String
 });
 
 export default mongoose.model('User', userSchema);
