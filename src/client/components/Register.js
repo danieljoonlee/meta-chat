@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
 import 'isomorphic-fetch'
+import React, {Component} from 'react';
+import LanguageOptions from './LanguageOptions';
 
 export default class Register extends Component {
   render() {
@@ -24,21 +25,11 @@ export default class Register extends Component {
           <br/>
 
           <label htmlFor="js-register-speaking">I speak: </label>
-            <select name="speaking" id="js-register-speaking">
-              <option value="english">English</option>
-              <option value="korean">Korean</option>
-              <option value="mandarin">Mandarin</option>
-              <option value="spanish">Spanish</option>
-            </select>
+            <LanguageOptions name="speaking" id="js-register-speaking"/>
           <br/>
 
           <label htmlFor="js-register-learning">I'm learning: </label>
-            <select name="learning" id="js-register-learning">
-              <option value="english">English</option>
-              <option value="korean">Korean</option>
-              <option value="mandarin">Mandarin</option>
-              <option value="spanish">Spanish</option>
-            </select>
+            <LanguageOptions name="learning" id="js-register-learning"/>
           <br/>
 
           <button>Submit</button>
