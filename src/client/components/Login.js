@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import serialize from 'form-serialize';
 import {Link} from 'react-router';
 
 export default class Auth extends Component {
@@ -23,9 +24,6 @@ export default class Auth extends Component {
 
   login(evt) {
     evt.preventDefault();
-    const inputs = evt.target.querySelectorAll('input');
-    const username = inputs[0].value;
-    const password = inputs[1].value;
-    this.props.login(username, password);
+    this.props.login(serialize(evt.target, {hash: true}));
   }
 }

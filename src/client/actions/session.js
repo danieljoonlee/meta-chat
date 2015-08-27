@@ -26,12 +26,12 @@ export function logout() {
   }
 }
 
-export function login(username, password) {
+export function login(creds) {
   return dispatch => {
     dispatch(beginLogin());
     return fetch('/api/login', {
       method: 'POST',
-      body: JSON.stringify({username, password})
+      body: JSON.stringify(creds)
     })
       .then(response => response.json())
       .then(user => {
