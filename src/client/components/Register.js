@@ -24,11 +24,21 @@ export default class Register extends Component {
           <br/>
 
           <label htmlFor="js-register-speaking">I speak: </label>
-          <input name="speaking" id="js-register-speaking"/>
+            <select name="speaking" id="js-register-speaking">
+              <option value="english">English</option>
+              <option value="korean">Korean</option>
+              <option value="mandarin">Mandarin</option>
+              <option value="spanish">Spanish</option>
+            </select>
           <br/>
 
           <label htmlFor="js-register-learning">I'm learning: </label>
-          <input name="learning" id="js-register-learning"/>
+            <select name="learning" id="js-register-learning">
+              <option value="english">English</option>
+              <option value="korean">Korean</option>
+              <option value="mandarin">Mandarin</option>
+              <option value="spanish">Spanish</option>
+            </select>
           <br/>
 
           <button>Submit</button>

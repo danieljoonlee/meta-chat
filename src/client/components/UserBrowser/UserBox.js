@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import * as util from '../../../util';
 
 export default class UserBox extends Component {
   render() {
@@ -8,10 +9,10 @@ export default class UserBox extends Component {
           Name: {this.props.username}
         </li>
         <li>
-          I speak: {this.props.speaking}
+          I speak: {util.capitalize(this.props.speaking)}
         </li>
         <li>
-          I'm learning: {this.props.learning}
+          I'm learning: {util.capitalize(this.props.learning)}
         </li>
       </ul>
     );
