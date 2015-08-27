@@ -16,6 +16,7 @@ export default class LanguageOptions extends Component {
 }
 
 const languages = [
+  '',
   'english',
   'korean',
   'mandarin',

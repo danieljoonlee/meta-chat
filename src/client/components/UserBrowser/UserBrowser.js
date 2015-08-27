@@ -11,8 +11,8 @@ export default class UserBrowser extends Component {
     return (
       <div>
         <h2>Browse Users</h2>
-        <UserFilter/>
-        {this.props.users.map(user => <UserBox {...user} key={user.username}/>)}
+        <UserFilter {...this.props}/>
+        {this.props.filteredUsers.map(user => <UserBox {...user} key={user.username}/>)}
       </div>
     );
   }

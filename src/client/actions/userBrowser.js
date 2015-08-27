@@ -1,4 +1,4 @@
-import {REQUEST_USERS, RECEIVE_USERS} from './constants';
+import {REQUEST_USERS, RECEIVE_USERS, FILTER_USERS} from './constants';
 import fetch from 'isomorphic-fetch';
 
 export function requestUsers() {
@@ -20,5 +20,12 @@ export function fetchUsers() {
     return fetch('/api/users')
       .then(response => response.json())
       .then(json => dispatch(receiveUsers(json)));
+  }
+}
+
+export function filter(filterCriteria) {
+  return {
+    type: FILTER_USERS,
+    filterCriteria
   }
 }
