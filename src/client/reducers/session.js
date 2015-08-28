@@ -2,7 +2,7 @@ import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT} from '../actions/cons
 
 const defaultState = {
   loading: false,
-  user: {},
+  currentUser: {},
   error: '',
   recentChats: []
 }
