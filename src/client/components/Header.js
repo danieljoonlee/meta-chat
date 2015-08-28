@@ -14,7 +14,7 @@ export default class Header extends Component {
 
     return (
       <div>
-        {this.props.currentUser.username ? {welcome} : <Login {...this.props}/>}
+        {this.props.currentUser.username ? welcome : <Login {...this.props}/>}
       </div>
     );
   }
