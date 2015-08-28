@@ -12,7 +12,7 @@ export default (state=defaultState, action) => {
     case BEGIN_LOGIN:
       return {...state, loading: true, error: ''};
     case LOGIN_SUCCESS:
-      return {...state, loading: false, user: action.user, recentChats: ['tom', 'brady']};
+      return {...state, loading: false, currentUser: action.user, recentChats: ['tom', 'brady']};
     case LOGIN_FAILURE:
       return {...state, loading: false, error: 'wrong creds'};
     case LOGOUT:

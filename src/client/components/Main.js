@@ -9,7 +9,7 @@ export default class Main extends Component {
       <div>
         <Header {...this.props}/>
         <Nav {...this.props}/>
-        {this.props.children}
+        {React.cloneElement(this.props.children, {currentUser: this.props.currentUser})}
       </div>
     );
   }

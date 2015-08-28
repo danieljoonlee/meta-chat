@@ -12,7 +12,9 @@ export default class UserBrowser extends Component {
       <div>
         <h2>Browse Users</h2>
         <UserFilter {...this.props}/>
-        {this.props.filteredUsers.map(user => <UserBox {...user} key={user.username}/>)}
+        {this.props.filteredUsers.map(user => 
+          <UserBox {...user} loggedIn={!!this.props.currentUser.token} key={user.username}/>
+        )}
       </div>
     );
   }
