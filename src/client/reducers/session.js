@@ -16,7 +16,7 @@ export default (state=defaultState, action) => {
     case LOGIN_FAILURE:
       return {...state, loading: false, error: 'wrong creds'};
     case LOGOUT:
-      return {...state, user: {}, recentChats: []};
+      return {...state, currentUser: {}, recentChats: []};
     default:
       return state;
   }
