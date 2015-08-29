@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken';
 
 const secret = 'correcthorsebatterystaple';
 
-export default (server) => {
-  server.route({
+export default [
+  {
     method: 'POST',
     path: '/api/login',
     handler: (request, reply) => {
@@ -13,5 +13,5 @@ export default (server) => {
         user ? reply({...user, token: jwt.sign(user, secret)}) : reply({});
       });
     }
-  });
-}
+  }
+];

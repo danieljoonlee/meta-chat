@@ -27,9 +27,9 @@ import usersController from './controllers/users';
 import sessionsController from './controllers/sessions';
 import messagesController from './controllers/messages';
 
-usersController(server);
-sessionsController(server);
-messagesController(server);
+server.route(usersController);
+server.route(sessionsController);
+server.route(messagesController);
 
 //client-side routes
 server.route({
