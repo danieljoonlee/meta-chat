@@ -2,11 +2,12 @@ import path from 'path';
 import React from 'react';
 import {Server} from 'hapi';
 import Inert from 'inert';
+import mongoose from 'mongoose';
 import Router from 'react-router';
+import {Provider} from 'react-redux';
+import store from '../store';
 import Location from 'react-router/lib/Location';
 import routes from '../client/components/Routes';
-import universalRouter from '../universalRouter';
-import mongoose from 'mongoose';
 
 //connect database
 mongoose.connect('mongodb://localhost/red');
@@ -21,10 +22,7 @@ server.start(() => {
 //static files plugin
 server.register(Inert, ()=>{});
 
-
-//////////////////////
-//      ROUTES      //
-//////////////////////
+//API routes
 import usersController from './controllers/users';
 import sessionsController from './controllers/sessions';
 import messagesController from './controllers/messages';
@@ -33,6 +31,7 @@ usersController(server);
 sessionsController(server);
 messagesController(server);
 
+//client-side routes
 server.route({
   method: 'GET',
   path: '/bundle.js',
@@ -55,11 +54,16 @@ server.route({
   method: 'GET',
   path: '/{param*}',
   handler: (request, reply) => {
-    const path = request.path || '/';
-    const location = new Location(path);
-    universalRouter(location).then((component) => {
-      const reactString = React.renderToString(component);
-      const bundleUrl = process.env.NODE_ENV === 'production' ? 'bundle.js' : 'http://localhost:3001/assets/bundle.js'; 
+    const location = new Location(request.path || '/');
+
+    Router.run(routes, location, (err, initialState) => {
+      const AppComponent = (
+        <Provider store={store}>
+          {() => <Router {...initialState}/>}
+        </Provider>
+      );
+      const reactString = React.renderToString(AppComponent);
+      const bundleUrl = process.env.NODE_ENV === 'production' ? 'bundle.js' : 'http://localhost:3001/assets/bundle.js';
       const html = `
         <div id="content">${reactString}</div>
         <script src="${bundleUrl}"></script>
