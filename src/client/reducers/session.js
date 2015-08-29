@@ -1,4 +1,4 @@
-import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, START_CHAT} from '../actions/constants';
+import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, REQUEST_MESSAGES} from '../actions/constants';
 
 const defaultState = {
   loading: false,
@@ -17,10 +17,10 @@ export default (state=defaultState, action) => {
       return {...state, loading: false, error: 'wrong creds'};
     case LOGOUT:
       return {...state, currentUser: {}, recentChats: []};
-    case START_CHAT:
+    case REQUEST_MESSAGES:
       const recentChats = state.recentChats.slice(0).filter(partner => partner !== action.partner);
       recentChats.unshift(action.partner);
-      return {...state, recentChats}
+      return ({...state, recentChats});
     default:
       return state;
   }

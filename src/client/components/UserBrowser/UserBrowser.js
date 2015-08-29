@@ -14,7 +14,7 @@ export default class UserBrowser extends Component {
         <UserFilter {...this.props}/>
         {this.props.filteredUsers.map(user => 
           <UserBox {...user} 
-            loggedIn={!!this.props.currentUser.token} 
+            currentUser={this.props.currentUser} 
             startChat={this.props.startChat}
             key={user.username}
           />

@@ -6,11 +6,13 @@ import thunk from 'redux-thunk';
 import routes from './client/components/Routes';
 import userBrowserReducer from './client/reducers/userBrowser';
 import sessionReducer from './client/reducers/session';
+import chatReducer from './client/reducers/chat';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const reducer = combineReducers({
   users: userBrowserReducer,
-  sessions: sessionReducer
+  session: sessionReducer,
+  chat: chatReducer
 });
 const store = createStoreWithMiddleware(reducer);
 

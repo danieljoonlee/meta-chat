@@ -1,8 +1,27 @@
-import {START_CHAT} from './constants';
+import {REQUEST_MESSAGES, RECEIVE_MESSAGES} from './constants';
+import fetch from 'isomorphic-fetch';
 
-export function startChat(partner){
+function requestMessages(partner) {
   return {
-    type: START_CHAT,
+    type: REQUEST_MESSAGES,
     partner
+  }
+}
+
+function receiveMessages(messages) {
+  return {
+    type: RECEIVE_MESSAGES,
+    messages
+  }
+}
+
+export function startChat(partner, currentUser){
+  const [user1, user2] = [partner, currentUser].map(encodeURIComponent);
+  
+  return dispatch => {
+    dispatch(requestMessages(partner));
+    return fetch(`/api/messages/${user1}/${user2}`)
+      .then(response => response.json())
+      .then(json => dispatch(receiveMessages(json)));
   }
 }

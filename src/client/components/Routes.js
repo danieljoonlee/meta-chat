@@ -9,7 +9,7 @@ export default (
   <Route component={MainContainer}>
     <Route path="/" component={UserBrowserContainer}/>
     <Route path="users" component={UserBrowserContainer}/>
-    <Route path="chat/tom" component={ChatContainer}/>
+    <Route path="chat" component={ChatContainer}/>
     <Route path="register" component={Register}/>
   </Route>
 );

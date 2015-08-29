@@ -27,9 +27,11 @@ server.register(Inert, ()=>{});
 //////////////////////
 import usersController from './controllers/users';
 import sessionsController from './controllers/sessions';
+import messagesController from './controllers/messages';
 
 usersController(server);
 sessionsController(server);
+messagesController(server);
 
 server.route({
   method: 'GET',

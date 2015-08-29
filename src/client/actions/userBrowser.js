@@ -1,13 +1,13 @@
 import {REQUEST_USERS, RECEIVE_USERS, FILTER_USERS} from './constants';
 import fetch from 'isomorphic-fetch';
 
-export function requestUsers() {
+function requestUsers() {
   return {
     type: REQUEST_USERS
   }
 }
 
-export function receiveUsers(users) {
+function receiveUsers(users) {
   return {
     type: RECEIVE_USERS,
     users
