@@ -3,11 +3,13 @@ import Router from 'react-router';
 import {history} from 'react-router/lib/BrowserHistory';
 import {Provider} from 'react-redux';
 import routes from './components/Routes';
-import store from '../store';
+import initStore from '../store';
+
+const store = initStore(REDUX_INITIAL_STATE);
 
 const AppComponent = (
   <Provider store={store}>
-    {() => <Router children={routes} history={history}/>}
+    {() => <Router children={routes(store)} history={history}/>}
   </Provider>
 );
 

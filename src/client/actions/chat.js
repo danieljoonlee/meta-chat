@@ -1,8 +1,8 @@
 import {REQUEST_MESSAGES, RECEIVE_MESSAGES} from './constants';
 import fetch from 'isomorphic-fetch';
 
-export function startChat(partner, currentUser){
-  const [user1, user2] = [partner, currentUser].map(encodeURIComponent);
+export function startChat(currentUser, partner){
+  const [user1, user2] = [currentUser, partner].map(encodeURIComponent);
   return {
     types: [
       REQUEST_MESSAGES,

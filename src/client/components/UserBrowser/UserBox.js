@@ -3,15 +3,10 @@ import {Link} from 'react-router';
 import * as util from '../../../util';
 
 export default class UserBox extends Component {
-  constructor() {
-    super();
-    this.startChat = this.startChat.bind(this);
-  }
-
   render() {
     const startChatLink = (
       <li>
-        <Link to="chat" data-username={this.props.username.toLowerCase()} onClick={this.startChat}>
+        <Link to={`chat/${this.props.currentUser.username}/${this.props.username}`} data-username={this.props.username.toLowerCase()}>
           Start Chat
         </Link>
       </li> 
@@ -27,10 +22,5 @@ export default class UserBox extends Component {
         </ul>
       </div>
     );
-  }
-
-  startChat(evt) {
-    const partner = evt.target.getAttribute('data-username');
-    this.props.startChat(partner, this.props.currentUser.username);
   }
 }

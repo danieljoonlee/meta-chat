@@ -7,4 +7,15 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreators, dispatch);
 }
 
-export default connect(state => state.chat, mapDispatchToProps)(Chat);
+const ChatContainer = connect(state => state.chat, mapDispatchToProps)(Chat);
+
+ChatContainer.fetchData = store => (routerState, transition, done) => {
+  if (store.getState().chat.partner === routerState.params.user2) {
+    done();
+  } else {
+    const {user1, user2} = routerState.params;
+    store.dispatch(actionCreators.startChat(user1, user2)).then(()=> done());
+  }
+};
+
+export default ChatContainer;

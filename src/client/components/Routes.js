@@ -5,11 +5,12 @@ import UserBrowserContainer from '../containers/UserBrowserContainer';
 import ChatContainer from '../containers/ChatContainer';
 import Register from './Register';
 
-export default (
+export default store => (
   <Route component={MainContainer}>
-    <Route path="/" component={UserBrowserContainer}/>
-    <Route path="users" component={UserBrowserContainer}/>
-    <Route path="chat" component={ChatContainer}/>
+    <Route path="/" component={UserBrowserContainer} onEnter={UserBrowserContainer.fetchData(store)}>
+      <Route path="users"/>
+    </Route>
+    <Route path="chat/:user1/:user2" component={ChatContainer} onEnter={ChatContainer.fetchData(store)}/>
     <Route path="register" component={Register}/>
   </Route>
 );

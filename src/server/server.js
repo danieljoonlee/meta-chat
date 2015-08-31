@@ -26,7 +26,7 @@ server.route(sessionsController);
 server.route(messagesController);
 
 //client-side routes
-import UIController from './controllers/UIController';
+import UIController from './UIController';
 server.route(UIController);
 
 server.route({
