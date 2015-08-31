@@ -1,15 +1,15 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
+import promiseMiddleware from 'redux-promise-middleware';
 import userBrowserReducer from './client/reducers/userBrowser';
 import sessionReducer from './client/reducers/session';
 import chatReducer from './client/reducers/chat';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore);
 
 const reducer = combineReducers({
-  users: userBrowserReducer,
+  userBrowser: userBrowserReducer,
   session: sessionReducer,
   chat: chatReducer
 });
 
-export default createStoreWithMiddleware(reducer);
+export default initialState => createStoreWithMiddleware(reducer, initialState);

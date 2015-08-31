@@ -1,25 +1,6 @@
 import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT} from './constants';
 import fetch from 'isomorphic-fetch';
 
-function beginLogin(){
-  return {
-    type: BEGIN_LOGIN
-  }
-}
-
-function loginSuccess(user) {
-  return {
-    type: LOGIN_SUCCESS,
-    user
-  }
-}
-
-function loginFailure() {
-  return {
-    type: LOGIN_FAILURE
-  }
-}
-
 export function logout() {
   return {
     type: LOGOUT
@@ -27,15 +8,17 @@ export function logout() {
 }
 
 export function login(creds) {
-  return dispatch => {
-    dispatch(beginLogin());
-    return fetch('/api/login', {
-      method: 'POST',
-      body: JSON.stringify(creds)
-    })
-      .then(response => response.json())
-      .then(user => {
-        user.token ? dispatch(loginSuccess(user)) : dispatch(loginFailure());
-      });
-  }
+  return {
+    types: [
+      BEGIN_LOGIN,
+      LOGIN_SUCCESS,
+      LOGIN_FAILURE
+    ],
+    payload: {
+      promise: fetch('/api/login', {
+        method: 'POST',
+        body: JSON.stringify(creds)
+      }).then(response => (response.json()))
+    }
+  };
 }

@@ -1,25 +1,16 @@
 import {REQUEST_USERS, RECEIVE_USERS, FILTER_USERS} from './constants';
 import fetch from 'isomorphic-fetch';
 
-function requestUsers() {
-  return {
-    type: REQUEST_USERS
-  }
-}
-
-function receiveUsers(users) {
-  return {
-    type: RECEIVE_USERS,
-    users
-  }
-}
-
 export function fetchUsers() {
-  return dispatch => {
-    dispatch(requestUsers);
-    return fetch('/api/users')
-      .then(response => response.json())
-      .then(json => dispatch(receiveUsers(json)));
+  return {
+    types: [
+      REQUEST_USERS,
+      RECEIVE_USERS,
+      null
+    ],
+    payload: {
+      promise: fetch('http://localhost:3000/api/users').then(response => (response.json()))
+    }
   }
 }
 
