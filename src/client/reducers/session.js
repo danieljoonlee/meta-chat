@@ -18,8 +18,9 @@ export default (state=defaultState, action) => {
     case LOGOUT:
       return {...state, currentUser: {}, recentChats: []};
     case REQUEST_MESSAGES:
-      const recentChats = state.recentChats.slice(0).filter(partner => partner !== action.payload);
-      recentChats.unshift(action.payload);
+      const recentChats = [action.payload].concat(
+        [...state.recentChats].filter(partner => partner !== action.payload)
+      );
       return ({...state, recentChats});
     default:
       return state;
