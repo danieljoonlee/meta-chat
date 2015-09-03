@@ -1,12 +1,16 @@
 import User from '../models/User';
+import bcrypt from 'bcrypt';
 
 export default [
   {
     method: 'POST',
     path: '/api/users',
     handler: (request, reply) => {
-      const user = new User(request.payload);
-      user.save((err, user) => { reply(user); });
+      bcrypt.hash(request.payload.password, 8, (err, hash) => {
+        const userData = {...request.payload, password: hash};
+        const user = new User(userData);
+        user.save((err, user) => {reply(user);});
+      });
     }
   },
 

@@ -18,7 +18,7 @@ export function login(creds) {
       promise: fetch('/api/login', {
         method: 'POST',
         body: JSON.stringify(creds)
-      }).then(response => (response.json()))
+      }).then(response => response.json())
     }
   };
 }

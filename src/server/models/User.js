@@ -4,10 +4,7 @@ const ObjectId = mongoose.Schema.ObjectId;
 const userSchema = mongoose.Schema({
   username: String,
   email: String,
-  password: {
-    type: String,
-    select: false
-  },
+  password: String,
   speaking: String,
   learning: String,
   recentChats: [{

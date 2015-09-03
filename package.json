@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "babel": "^5.8.21",
+    "bcrypt": "^0.8.5",
     "exports-loader": "^0.6.2",
     "form-serialize": "^0.6.0",
     "hapi": "^9.0.1",
