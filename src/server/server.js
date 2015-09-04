@@ -33,7 +33,7 @@ server.route({
   method: 'GET',
   path: '/bundle.js',
   handler: (request, reply) => {
-    reply.file(path.join(__dirname, '../dist/bundle.js'));
+    reply.file(path.join(__dirname, '../../dist/bundle.js'));
   }
 });
 
@@ -42,7 +42,7 @@ server.route({
   method: 'GET',
   path: '/static/{param*}',
   handler: (request, reply) => {
-    reply.file(path.join(__dirname, '../', request.path));
+    reply.file(path.join(__dirname, '../../', request.path));
   }
 });
 
@@ -50,7 +50,7 @@ server.route({
   method: 'GET',
   path: '/favicon.ico',
   handler: (request, reply) => {
-    reply.file(path.join(__dirname, '../static/favicon.ico'));
+    reply.file(path.join(__dirname, '../../static/favicon.ico'));
   }
 });
 
