@@ -1,6 +1,6 @@
 import 'isomorphic-fetch'
 import React, {Component} from 'react';
-import LanguageOptions from './LanguageOptions';
+import LanguageOptions from '../../LanguageOptions';
 
 export default class Register extends Component {
   render() {

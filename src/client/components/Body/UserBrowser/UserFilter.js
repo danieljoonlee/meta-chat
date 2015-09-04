@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import serialize from 'form-serialize';
-import LanguageOptions from '../LanguageOptions';
+import LanguageOptions from '../../LanguageOptions';
 
 export default class UserFilter extends Component {
   constructor() {

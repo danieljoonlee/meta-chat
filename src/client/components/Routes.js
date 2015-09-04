@@ -3,7 +3,7 @@ import {Route} from 'react-router';
 import MainContainer from '../containers/MainContainer';
 import UserBrowserContainer from '../containers/UserBrowserContainer';
 import ChatContainer from '../containers/ChatContainer';
-import Register from './Register';
+import Register from './Body/Register/Register';
 
 export default store => (
   <Route component={MainContainer}>

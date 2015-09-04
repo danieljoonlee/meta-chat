@@ -1,6 +1,6 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import Chat from '../components/Chat/Chat';
+import Chat from '../components/Body/Chat/Chat';
 import * as actionCreators from '../actions/chat';
 
 function mapDispatchToProps(dispatch) {

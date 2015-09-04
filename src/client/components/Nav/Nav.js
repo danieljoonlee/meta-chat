@@ -7,7 +7,7 @@ export default class Nav extends Component {
       <ul>
         {this.props.recentChats.map(name => (<li key={name}>{name}</li>))}
       </ul>
-    )
+    );
 
     return (
       <ul>

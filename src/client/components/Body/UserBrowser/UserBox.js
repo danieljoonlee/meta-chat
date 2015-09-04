@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
-import * as util from '../../../util';
+import * as util from '../../../../util';
 
 export default class UserBox extends Component {
   render() {
