@@ -15,7 +15,7 @@ export default [
           bcrypt.compare(password, user.password, (err, res) => {
             if (res) {
               delete user.password;
-              reply({...user, token: jwt.sign(user, secret)});
+              reply({user, token: jwt.sign(user, secret)});
             } else {
               reply(null);
             }
