@@ -1,5 +1,6 @@
 import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT} from './constants';
 import fetch from 'isomorphic-fetch';
+import cookie from 'js-cookie';
 
 export function logout() {
   return {
@@ -19,6 +20,7 @@ export function login(creds) {
         method: 'POST',
         body: JSON.stringify(creds)
       }).then(response => response.json())
+        .then(json => cookie.set('token', json.token))
     }
   };
 }
