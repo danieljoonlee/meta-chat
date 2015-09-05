@@ -1,13 +1,19 @@
 import 'isomorphic-fetch'
 import React, {Component} from 'react';
+import serialize from 'form-serialize';
 import LanguageOptions from '../../LanguageOptions';
 
 export default class Register extends Component {
+  constructor() {
+    super();
+    this.register = this.register.bind(this);
+  }
+
   render() {
     return (
       <div>
         <h2>Register</h2>
-        <form onSubmit={this.submit}>
+        <form onSubmit={this.register}>
           <label htmlFor="js-register-username">Username: </label>
           <input name="username" id="js-register-username"/>
           <br/>
@@ -38,11 +44,8 @@ export default class Register extends Component {
     );
   }
 
-  submit(evt) {
+  register(evt) {
     evt.preventDefault();
-    fetch('/api/users', {
-      method: 'POST',
-      body: new FormData(evt.target)
-    });
+    this.props.register(serialize(evt.target, {hash: true}));
   }
 }
