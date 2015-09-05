@@ -9,7 +9,7 @@ export default [
     method: 'POST',
     path: '/api/login',
     handler: (request, reply) => {
-      const {username, password} = JSON.parse(request.payload);
+      const {username, password} = request.payload;
       User.findOne({username}).lean().exec((err, user) => {
         if (user) {
           bcrypt.compare(password, user.password, (err, res) => {

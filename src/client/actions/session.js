@@ -18,9 +18,12 @@ export function login(creds) {
     payload: {
       promise: fetch('/api/login', {
         method: 'POST',
-        body: JSON.stringify(creds)
-      }).then(response => response.json())
-        .then(json => cookie.set('token', json.token))
+        body: JSON.stringify(creds),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }).then(response => cookie.set('token', response.token))
     }
   };
 }
