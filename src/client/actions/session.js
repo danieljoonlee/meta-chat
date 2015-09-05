@@ -3,8 +3,9 @@ import fetch from 'isomorphic-fetch';
 import cookie from 'js-cookie';
 
 export function logout() {
-  return {
-    type: LOGOUT
+  return dispatch => {
+    cookie.remove('token');
+    dispatch({type: LOGOUT});
   }
 }
 
