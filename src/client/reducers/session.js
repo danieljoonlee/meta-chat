@@ -1,4 +1,4 @@
-import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, REQUEST_MESSAGES} from '../actions/constants';
+import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, REGISTRATION_SUCCESS, REQUEST_MESSAGES} from '../actions/constants';
 
 const defaultState = {
   loading: false,
@@ -12,6 +12,7 @@ export default (state=defaultState, action) => {
     case BEGIN_LOGIN:
       return {...state, loading: true, error: ''};
     case LOGIN_SUCCESS:
+    case REGISTRATION_SUCCESS:
       return {...state, loading: false, currentUser: action.payload.user};
     case LOGIN_FAILURE:
       return {...state, loading: false, error: 'wrong creds'};

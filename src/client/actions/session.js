@@ -24,7 +24,10 @@ export function login(creds) {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
-      }).then(response => cookie.set('token', response.token))
+      }).then(response => {
+        cookie.set('token', response.token);
+        return response.json();
+      })
     }
   };
 }

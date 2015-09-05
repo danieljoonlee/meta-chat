@@ -1,5 +1,6 @@
 import User from '../models/User';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export default [
   {
@@ -9,7 +10,11 @@ export default [
       bcrypt.hash(request.payload.password, 8, (err, hash) => {
         const userData = {...request.payload, password: hash};
         const user = new User(userData);
-        user.save((err, user) => {reply(user);});
+        user.save((err, user) => {
+          var newUser = user.toObject();
+          delete newUser.password;
+          reply({user: newUser, token: jwt.sign(user, 'correcthorsebatterystaple')});
+        });
       });
     }
   },

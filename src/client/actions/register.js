@@ -16,7 +16,7 @@ export function register(newUserData){
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
-      })
+      }).then(response => response.json())
     }
   };
 }

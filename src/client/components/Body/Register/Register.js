@@ -46,6 +46,7 @@ export default class Register extends Component {
 
   register(evt) {
     evt.preventDefault();
-    this.props.register(serialize(evt.target, {hash: true}));
+    var userData = serialize(evt.target, {hash: true});
+    this.props.register(userData);
   }
 }
