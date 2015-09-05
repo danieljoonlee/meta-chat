@@ -36,7 +36,7 @@ function setUserSession(store, cookie) {
     const user = jwt.verify(cookie.token, 'correcthorsebatterystaple');
     store.dispatch({
       type: LOGIN_SUCCESS,
-      payload: {user}
+      payload: {...user}
     });
   } catch (err) {}
 }

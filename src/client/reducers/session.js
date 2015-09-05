@@ -13,7 +13,7 @@ export default (state=defaultState, action) => {
       return {...state, loading: true, error: ''};
     case LOGIN_SUCCESS:
     case REGISTRATION_SUCCESS:
-      return {...state, loading: false, currentUser: action.payload.user};
+      return {...state, loading: false, currentUser: action.payload};
     case LOGIN_FAILURE:
       return {...state, loading: false, error: 'wrong creds'};
     case LOGOUT:
