@@ -7,10 +7,7 @@ const userSchema = mongoose.Schema({
   password: String,
   speaking: String,
   learning: String,
-  recentChats: [{
-    partner: String,
-    chatId: ObjectId
-  }]
+  recentChats: [String]
 });
 
 userSchema.set('toJSON', {

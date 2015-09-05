@@ -25,5 +25,16 @@ export default [
         reply(users);
       });
     }
+  },
+
+  {
+    method: 'PUT',
+    path: '/api/users',
+    handler: (request, reply) => {
+      try {
+        const user = jwt.verify(request.state.token, 'correcthorsebatterystaple');
+        User.findByIdAndUpdate(user._id, {$push: {recentChats: request.payload}}, (err, user) => reply(user));
+      } catch(err) {reply(null);}
+    }
   }
 ];
