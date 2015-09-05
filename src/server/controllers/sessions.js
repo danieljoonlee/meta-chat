@@ -10,12 +10,11 @@ export default [
     path: '/api/login',
     handler: (request, reply) => {
       const {username, password} = request.payload;
-      User.findOne({username}).lean().exec((err, user) => {
+      User.findOne({username}, (err, user) => {
         if (user) {
           bcrypt.compare(password, user.password, (err, res) => {
             if (res) {
-              delete user.password;
-              reply({user, token: jwt.sign(user, secret)});
+              reply({user: user.toJSON(), token: jwt.sign(user.toJSON(), secret)});
             } else {
               reply(null);
             }
