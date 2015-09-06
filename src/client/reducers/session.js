@@ -1,10 +1,11 @@
 import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, REGISTRATION_SUCCESS, RECENT_CHAT_UPDATE_SUCCESS} from '../actions/constants';
 
 const defaultState = {
+  currentUser: {
+    recentChats: []
+  },
   loading: false,
-  currentUser: {},
-  error: '',
-  recentChats: []
+  error: ''
 };
 
 export default (state=defaultState, action) => {
@@ -17,9 +18,9 @@ export default (state=defaultState, action) => {
     case LOGIN_FAILURE:
       return {...state, loading: false, error: 'wrong creds'};
     case LOGOUT:
-      return {...state, currentUser: {}, recentChats: []};
+      return {...state, currentUser: {recentChats: []}};
     case RECENT_CHAT_UPDATE_SUCCESS:
-      return ({...state, recentChats: action.payload});
+      return ({...state, currentUser: {...state.currentUser, recentChats: action.payload}});
     default:
       return state;
   }

@@ -5,7 +5,7 @@ export default class Nav extends Component {
   render() {
     const recentChats = (
       <ul>
-        {this.props.recentChats.map(name => (<li key={name}>{name}</li>))}
+        {this.props.currentUser.recentChats.map(name => (<li key={name}>{name}</li>))}
       </ul>
     );
 
@@ -14,7 +14,7 @@ export default class Nav extends Component {
         <li><Link to="/users">Browse Users</Link></li>
         <li>
           RecentChats
-          {this.props.recentChats.length > 0 ? recentChats : ''}
+          {this.props.currentUser.recentChats.length > 0 ? recentChats : ''}
         </li>
       </ul>
     );
