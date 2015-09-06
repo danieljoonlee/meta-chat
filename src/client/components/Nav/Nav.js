@@ -3,9 +3,14 @@ import {Link} from 'react-router';
 
 export default class Nav extends Component {
   render() {
+    const recentChat = (name) => {
+      const chatUrl = `/chat/${this.props.currentUser.username}/${name}`;
+      return (<li key={name}><Link to={chatUrl}>{name}</Link></li>);
+    };
+
     const recentChats = (
       <ul>
-        {this.props.currentUser.recentChats.map(name => (<li key={name}>{name}</li>))}
+        {this.props.currentUser.recentChats.map(recentChat)}
       </ul>
     );
 
