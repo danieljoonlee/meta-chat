@@ -1,20 +1,24 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Chat from '../components/Body/Chat/Chat';
-import * as actionCreators from '../actions/chat';
+import * as chatActionCreators from '../actions/chat';
+import * as sessionActionCreators from '../actions/session';
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actionCreators, dispatch);
+  return bindActionCreators(chatActionCreators, dispatch);
 }
 
 const ChatContainer = connect(state => state.chat, mapDispatchToProps)(Chat);
 
-ChatContainer.fetchData = store => (routerState, transition, done) => {
+ChatContainer.startChat = store => (routerState, transition, done) => {
   if (store.getState().chat.partner === routerState.params.user2) {
     done();
   } else {
     const {user1, user2} = routerState.params;
-    store.dispatch(actionCreators.startChat(user1, user2)).then(()=> done());
+    Promise.all([
+      store.dispatch(sessionActionCreators.updateRecentChat(user2)),
+      store.dispatch(chatActionCreators.fetchMessages(user1, user2))
+    ]).then(() => {done()})
   }
 };
 

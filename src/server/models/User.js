@@ -17,4 +17,13 @@ userSchema.set('toJSON', {
   }
 });
 
+userSchema.statics.findByIdAndPushRecentChat = function(id, newPartner, callback) {
+  return this.findById(id, (err, user) => {
+    user.recentChats = [newPartner]
+      .concat([...user.recentChats].filter(partner => partner !== newPartner))
+      .slice(0, 10);
+    user.save(callback);
+  });
+};
+
 export default mongoose.model('User', userSchema);

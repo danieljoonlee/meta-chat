@@ -29,11 +29,11 @@ export default [
 
   {
     method: 'PUT',
-    path: '/api/users',
+    path: '/api/users/recents',
     handler: (request, reply) => {
       try {
         const user = jwt.verify(request.state.token, 'correcthorsebatterystaple');
-        User.findByIdAndUpdate(user._id, {$push: {recentChats: request.payload}}, (err, user) => reply(user));
+        User.findByIdAndPushRecentChat(user._id, request.payload, (err, user) => reply(user.recentChats));
       } catch(err) {reply(null);}
     }
   }

@@ -1,4 +1,4 @@
-import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, REGISTRATION_SUCCESS, REQUEST_MESSAGES} from '../actions/constants';
+import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, REGISTRATION_SUCCESS, RECENT_CHAT_UPDATE_SUCCESS} from '../actions/constants';
 
 const defaultState = {
   loading: false,
@@ -18,11 +18,8 @@ export default (state=defaultState, action) => {
       return {...state, loading: false, error: 'wrong creds'};
     case LOGOUT:
       return {...state, currentUser: {}, recentChats: []};
-    case REQUEST_MESSAGES:
-      const recentChats = [action.payload].concat(
-        [...state.recentChats].filter(partner => partner !== action.payload)
-      );
-      return ({...state, recentChats});
+    case RECENT_CHAT_UPDATE_SUCCESS:
+      return ({...state, recentChats: action.payload});
     default:
       return state;
   }
