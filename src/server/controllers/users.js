@@ -1,6 +1,6 @@
 import User from '../models/User';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt from '../../jwt';
 
 export default [
   {
@@ -11,7 +11,7 @@ export default [
         const userData = {...request.payload, password: hash};
         const user = new User(userData);
         user.save((err, user) => {
-          reply({user: user.toJSON(), token: jwt.sign(user.toJSON(), 'correcthorsebatterystaple')});
+          reply({user: user.toJSON(), token: jwt.sign(user.toJSON())});
         });
       });
     }
@@ -32,7 +32,7 @@ export default [
     path: '/api/users/recents',
     handler: (request, reply) => {
       try {
-        const user = jwt.verify(request.state.token, 'correcthorsebatterystaple');
+        const user = jwt.verify(request.state.token);
         User.findByIdAndPushRecentChat(user._id, request.payload, (err, user) => reply(user.recentChats));
       } catch(err) {reply(null);}
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import Router from 'react-router';
 import {Provider} from 'react-redux';
 import Location from 'react-router/lib/Location';
-import jwt from 'jsonwebtoken';
+import jwt from '../jwt';
 import initStore from '../store';
 import routes from '../client/components/Routes';
 import {LOGIN_SUCCESS} from '../client/actions/constants';
@@ -37,16 +37,12 @@ export default {
 };
 
 async function setUserSession(store, cookie) {
-  try {
-    const jwtUser = jwt.verify(cookie.token, 'correcthorsebatterystaple');
-    var user = await User.findById(jwtUser._id);
-    store.dispatch({
-      type: LOGIN_SUCCESS,
-      payload: {...user.toJSON()}
-    });
-  } catch (err) {
-    console.log(err, err.stack);
-  }
+  const jwtUser = jwt.verify(cookie.token);
+  var user = await User.findById(jwtUser._id);
+  store.dispatch({
+    type: LOGIN_SUCCESS,
+    payload: {...user.toJSON()}
+  });
 }
 
 function template(context) {

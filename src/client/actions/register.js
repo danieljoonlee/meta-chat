@@ -1,7 +1,6 @@
 import {BEGIN_REGISTRATION, REGISTRATION_SUCCESS, REGISTRATION_FAILURE} from './constants';
 import fetch from 'isomorphic-fetch';
 import cookie from 'js-cookie';
-import jwt from 'jsonwebtoken';
 
 export function register(newUserData){
   return {
