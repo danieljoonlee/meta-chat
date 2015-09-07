@@ -3,6 +3,7 @@ import {Server} from 'hapi';
 import Inert from 'inert';
 import mongoose from 'mongoose';
 import ioInit from 'socket.io';
+import jwt from '../jwt';
 
 //connect database
 mongoose.connect('mongodb://localhost/red');
@@ -27,9 +28,31 @@ server.route(sessionsController);
 server.route(messagesController);
 
 //socket io
+const socketIdUsernameMap = {};
+const usernameSocketIdMap = {};
 const io = ioInit(server.listener);
 io.on('connection', socket => {
-  socket.on('message', message => console.log(message));
+  socket.on('creds', token => {
+    try {
+      const user = jwt.verify(token);
+      usernameSocketIdMap[user.username] = socket.id;
+      socketIdUsernameMap[socket.id] = user.username;
+    } catch (err) {}
+  });
+
+  socket.on('disconnect', () => {
+    const username = socketIdUsernameMap[socket.id];
+    if (username) {
+      delete usernameSocketIdMap[username];
+      delete socketIdUsernameMap[socket.id];
+    }
+  });
+
+  socket.on('message', (msg) => {
+    const partner = msg.user1 === msg.speaker ? msg.user2 : msg.user1;
+    const partnerSocketId = usernameSocketIdMap[partner];
+    socket.broadcast.to(partnerSocketId).emit('message', msg);
+  });
 });
 
 //client-side routes

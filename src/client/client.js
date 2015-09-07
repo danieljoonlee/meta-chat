@@ -2,8 +2,17 @@ import React from 'react';
 import Router from 'react-router';
 import {history} from 'react-router/lib/BrowserHistory';
 import {Provider} from 'react-redux';
+import cookie from 'js-cookie';
 import routes from './components/Routes';
 import initStore from '../store';
+import socket from './socket';
+import {RECEIVE_ONE_MESSAGE} from './actions/constants';
+
+socket.emit('creds', cookie.get('token'));
+socket.on('message', message => store.dispatch({
+  type: RECEIVE_ONE_MESSAGE,
+  payload: message
+}));
 
 const store = initStore(REDUX_INITIAL_STATE);
 

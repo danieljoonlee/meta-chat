@@ -19,25 +19,26 @@ export function fetchMessages(currentUser, partner){
 }
 
 export function sendMessage(content) {
-  return dispatch => {
-    socket.emit('message', content);
-    return dispatch({
-      types: [
-        null,
-        RECEIVE_ONE_MESSAGE,
-        null
-      ],
-      payload: {
-        promise: fetch('http://localhost:3000/api/messages', {
-          method: 'POST',
-          body: JSON.stringify(content),
-          credentials: 'include',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        }).then(response => response.json())
-      }
-    });
-  }
+  return {
+    types: [
+      null,
+      RECEIVE_ONE_MESSAGE,
+      null
+    ],
+    payload: {
+      promise: fetch('http://localhost:3000/api/messages', {
+        method: 'POST',
+        body: JSON.stringify(content),
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }).then(response => response.json())
+        .then(message => {
+          socket.emit('message', message);
+          return message;
+        })
+    }
+  };
 }
