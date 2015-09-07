@@ -7,3 +7,7 @@ export function isSubObject(obj1, obj2) {
     return obj1[key] === obj2[key];
   });
 }
+
+export function deepClone(pojo) {
+  return JSON.parse(JSON.stringify(pojo));
+}

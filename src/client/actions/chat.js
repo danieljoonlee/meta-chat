@@ -1,4 +1,4 @@
-import {REQUEST_MESSAGES, RECEIVE_MESSAGES, RECEIVE_ONE_MESSAGE} from './constants';
+import {REQUEST_MESSAGES, RECEIVE_MESSAGES, RECEIVE_ONE_MESSAGE, TOGGLE_MESSAGE_EXPAND} from './constants';
 import fetch from 'isomorphic-fetch';
 import socket from '../socket';
 
@@ -41,4 +41,28 @@ export function sendMessage(content) {
         })
     }
   };
+}
+
+export function toggleMessageExpand(id) {
+  return {
+    types: [
+      TOGGLE_MESSAGE_EXPAND,
+      null,
+      null
+    ],
+    payload: {
+      // uncomment when you want to persist message expansion
+      promise: Promise.resolve(1),
+      //promise: fetch('', {
+      //  method: 'POST',
+      //  body: JSON.stringify(id),
+      //  credentials: 'include',
+      //  headers: {
+      //    'Accept': 'application/json',
+      //    'Content-Type': 'application/json'
+      //  }
+      //}),
+      data: id
+    }
+  }
 }

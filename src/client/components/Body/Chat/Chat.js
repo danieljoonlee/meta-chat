@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ChatMessage from './ChatMessage';
+import ChatMessages from './ChatMessages';
 
 export default class Chat extends Component {
   constructor() {
@@ -12,7 +12,7 @@ export default class Chat extends Component {
       <div>
         <h2>Chat</h2>
         <div id="js-chat-content">
-          {this.props.messages.map(message => <ChatMessage {...message} key={message._id}/>)}
+          <ChatMessages {...this.props}/>
         </div>
         <input name="messageInput" onKeyPress={this.submit}/>
       </div>
