@@ -37,12 +37,14 @@ export default {
 };
 
 async function setUserSession(store, cookie) {
-  const jwtUser = jwt.verify(cookie.token);
-  var user = await User.findById(jwtUser._id);
-  store.dispatch({
-    type: LOGIN_SUCCESS,
-    payload: {...user.toJSON()}
-  });
+  try {
+    const jwtUser = jwt.verify(cookie.token);
+    var user = await User.findById(jwtUser._id);
+    store.dispatch({
+      type: LOGIN_SUCCESS,
+      payload: {...user.toJSON()}
+    });
+  } catch (err) {}
 }
 
 function template(context) {
