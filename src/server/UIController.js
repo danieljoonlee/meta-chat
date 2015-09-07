@@ -48,7 +48,7 @@ async function setUserSession(store, cookie) {
 }
 
 function template(context) {
-  const bundleUrl = process.env.NODE_ENV === 'production' ? 'bundle.js' : 'http://localhost:3001/assets/bundle.js';
+  const bundleUrl = process.env.NODE_ENV === 'production' ? '/bundle.js' : 'http://localhost:3001/assets/bundle.js';
 
   return `
     <div id="content">${context.reactString}</div>
