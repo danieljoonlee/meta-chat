@@ -1,4 +1,4 @@
-import {REQUEST_MESSAGES, RECEIVE_MESSAGES} from '../actions/constants';
+import {REQUEST_MESSAGES, RECEIVE_MESSAGES, RECEIVE_ONE_MESSAGE} from '../actions/constants';
 
 const defaultState = {
   partner: null,
@@ -11,6 +11,8 @@ export default (state=defaultState, action) => {
       return {...state, partner: action.payload};
     case RECEIVE_MESSAGES:
       return {...state, messages: action.payload};
+    case RECEIVE_ONE_MESSAGE:
+      return {...state, messages: [...state.messages, action.payload]};
     default:
       return state;
   }

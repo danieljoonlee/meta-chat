@@ -2,6 +2,7 @@ import path from 'path';
 import {Server} from 'hapi';
 import Inert from 'inert';
 import mongoose from 'mongoose';
+import ioInit from 'socket.io';
 
 //connect database
 mongoose.connect('mongodb://localhost/red');
@@ -24,6 +25,12 @@ import messagesController from './controllers/messages';
 server.route(usersController);
 server.route(sessionsController);
 server.route(messagesController);
+
+//socket io
+const io = ioInit(server.listener);
+io.on('connection', socket => {
+  socket.on('message', message => console.log(message));
+});
 
 //client-side routes
 import UIController from './UIController';
@@ -53,4 +60,3 @@ server.route({
     reply.file(path.join(__dirname, '../../static/favicon.ico'));
   }
 });
-

@@ -1,5 +1,6 @@
-import {REQUEST_MESSAGES, RECEIVE_MESSAGES} from './constants';
+import {REQUEST_MESSAGES, RECEIVE_MESSAGES, RECEIVE_ONE_MESSAGE} from './constants';
 import fetch from 'isomorphic-fetch';
+import socket from '../socket';
 
 export function fetchMessages(currentUser, partner){
   const [user1, user2] = [currentUser, partner].map(encodeURIComponent);
@@ -15,4 +16,28 @@ export function fetchMessages(currentUser, partner){
       data: partner
     }
   };
+}
+
+export function sendMessage(content) {
+  return dispatch => {
+    socket.emit('message', content);
+    return dispatch({
+      types: [
+        null,
+        RECEIVE_ONE_MESSAGE,
+        null
+      ],
+      payload: {
+        promise: fetch('http://localhost:3000/api/messages', {
+          method: 'POST',
+          body: JSON.stringify(content),
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        }).then(response => response.json())
+      }
+    });
+  }
 }

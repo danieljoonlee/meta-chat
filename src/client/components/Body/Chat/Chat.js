@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import ChatMessage from './ChatMessage';
 
 export default class Chat extends Component {
+  constructor() {
+    super();
+    this.submit = this.submit.bind(this);
+  }
+
   render() {
     return (
       <div>
@@ -9,8 +14,19 @@ export default class Chat extends Component {
         <div id="js-chat-content">
           {this.props.messages.map(message => <ChatMessage {...message} key={message._id}/>)}
         </div>
-        <input/>
+        <input name="messageInput" onKeyPress={this.submit}/>
       </div>
     );
+  }
+
+  submit(evt) {
+    if (evt.which === 13) {
+      const message = {
+        partner: this.props.partner,
+        content: evt.target.value
+      };
+      this.props.sendMessage(message);
+      evt.target.value = '';
+    }
   }
 }
