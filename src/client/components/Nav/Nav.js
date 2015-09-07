@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 export default class Nav extends Component {
   render() {
     const recentChat = (name) => {
-      const chatUrl = `/chat/${this.props.currentUser.username}/${name}`;
+      const chatUrl = `/chat/${name}`;
       return (<li key={name}><Link to={chatUrl}>{name}</Link></li>);
     };
 

@@ -6,7 +6,7 @@ export default class UserBox extends Component {
   render() {
     const startChatLink = (
       <li>
-        <Link to={`chat/${this.props.currentUser.username}/${this.props.username}`} data-username={this.props.username.toLowerCase()}>
+        <Link to={`/chat/${this.props.username}`} data-username={this.props.username.toLowerCase()}>
           Start Chat
         </Link>
       </li> 

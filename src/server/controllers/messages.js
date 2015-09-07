@@ -4,10 +4,15 @@ import jwt from '../../jwt';
 export default [
   {
     method: 'GET',
-    path: '/api/messages/{user*2}',
+    path: '/api/messages/{partner}',
     handler: (request, reply) => {
-      const [user1, user2] = request.params.user.split('/').map(decodeURIComponent);
-      Message.findByUsers(user1.toLowerCase(), user2.toLowerCase(), (err, messages) => reply(messages));
+      try {
+        const user = jwt.verify(request.state.token);
+        const users = [request.params.partner, user.username]
+          .map(name => name.toLowerCase())
+          .sort();
+        Message.findByUsers(users[0], users[1], (err, messages) => reply(messages));
+      } catch (err) {reply(null)}
     }
   },
   {

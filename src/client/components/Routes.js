@@ -10,7 +10,7 @@ export default store => (
     <Route path="/" component={UserBrowserContainer} onEnter={UserBrowserContainer.fetchData(store)}>
       <Route path="users"/>
     </Route>
-    <Route path="chat/:user1/:user2" component={ChatContainer} onEnter={ChatContainer.startChat(store)}/>
+    <Route path="chat/:partner" component={ChatContainer} onEnter={ChatContainer.startChat(store)}/>
     <Route path="register" component={RegisterContainer}/>
   </Route>
 );

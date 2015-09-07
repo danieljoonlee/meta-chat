@@ -11,15 +11,11 @@ function mapDispatchToProps(dispatch) {
 const ChatContainer = connect(state => state.chat, mapDispatchToProps)(Chat);
 
 ChatContainer.startChat = store => (routerState, transition, done) => {
-  if (store.getState().chat.partner === routerState.params.user2) {
-    done();
-  } else {
-    const {user1, user2} = routerState.params;
-    Promise.all([
-      store.dispatch(sessionActionCreators.updateRecentChat(user2)),
-      store.dispatch(chatActionCreators.fetchMessages(user1, user2))
-    ]).then(() => {done()})
-  }
+  const partner = routerState.params.partner;
+  Promise.all([
+    store.dispatch(sessionActionCreators.updateRecentChat(partner)),
+    store.dispatch(chatActionCreators.fetchMessages(partner))
+  ]).then(() => {done()})
 };
 
 export default ChatContainer;

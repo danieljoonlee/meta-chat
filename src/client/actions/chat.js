@@ -2,8 +2,7 @@ import {REQUEST_MESSAGES, RECEIVE_MESSAGES, RECEIVE_ONE_MESSAGE} from './constan
 import fetch from 'isomorphic-fetch';
 import socket from '../socket';
 
-export function fetchMessages(currentUser, partner){
-  const [user1, user2] = [currentUser, partner].map(encodeURIComponent);
+export function fetchMessages(partner){
   return {
     types: [
       REQUEST_MESSAGES,
@@ -11,8 +10,9 @@ export function fetchMessages(currentUser, partner){
       null
     ],
     payload: {
-      promise: fetch(`http://localhost:3000/api/messages/${user1}/${user2}`)
-        .then(response => response.json()),
+      promise: fetch(`http://localhost:3000/api/messages/${partner}`, {
+        credentials: 'include'
+      }).then(response => response.json()),
       data: partner
     }
   };
