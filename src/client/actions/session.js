@@ -33,7 +33,7 @@ export function login(creds) {
   };
 }
 
-export function updateRecentChat(partner) {
+export function updateRecentChat(user, partner) {
   return {
     types: [
       null,
@@ -43,14 +43,12 @@ export function updateRecentChat(partner) {
     payload: {
       promise: fetch('http://localhost:3000/api/users/recents', {
         method: 'PUT',
-        body: JSON.stringify(partner),
-        credentials: 'include',
+        body: JSON.stringify({user, partner}),
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
-      }).then(response => response.json()),
-      data: partner
+      }).then(response => response.json())
     }
   };
 }

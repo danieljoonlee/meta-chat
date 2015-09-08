@@ -31,10 +31,8 @@ export default [
     method: 'PUT',
     path: '/api/users/recents',
     handler: (request, reply) => {
-      try {
-        const user = jwt.verify(request.state.token);
-        User.findByIdAndPushRecentChat(user._id, request.payload, (err, user) => reply(user.recentChats));
-      } catch(err) {reply(null);}
+      const {user, partner} = request.payload;
+      User.findUserAndPushRecentChat(user, partner, (err, user) => reply(user.recentChats));
     }
   }
 ];

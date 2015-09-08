@@ -12,8 +12,9 @@ const ChatContainer = connect(state => state.chat, mapDispatchToProps)(Chat);
 
 ChatContainer.startChat = store => (routerState, transition, done) => {
   const partner = routerState.params.partner;
+  const currentUser = store.getState().session.currentUser.username;
   Promise.all([
-    store.dispatch(sessionActionCreators.updateRecentChat(partner)),
+    store.dispatch(sessionActionCreators.updateRecentChat(currentUser, partner)),
     store.dispatch(chatActionCreators.fetchMessages(partner))
   ]).then(() => {done()})
 };
