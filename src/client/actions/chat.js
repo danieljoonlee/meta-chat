@@ -1,6 +1,6 @@
 import {REQUEST_MESSAGES, RECEIVE_MESSAGES, RECEIVE_ONE_MESSAGE, TOGGLE_MESSAGE_EXPAND} from './constants';
 import fetch from 'isomorphic-fetch';
-import socket from '../socket';
+import Socket from '../socket';
 
 export function fetchMessages(partner){
   return {
@@ -16,6 +16,13 @@ export function fetchMessages(partner){
       data: partner
     }
   };
+}
+
+export function receiveMessage(message) {
+  return {
+    type: RECEIVE_ONE_MESSAGE,
+    payload: message
+  }
 }
 
 export function sendMessage(content) {
@@ -36,7 +43,7 @@ export function sendMessage(content) {
         }
       }).then(response => response.json())
         .then(message => {
-          socket.emit('message', message);
+          Socket.socket.emit('message', message);
           return message;
         })
     }

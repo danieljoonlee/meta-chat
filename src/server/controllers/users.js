@@ -28,6 +28,25 @@ export default [
   },
 
   {
+    method: 'GET',
+    path: '/api/user/{username?}',
+    handler: (request, reply) => {
+      if (!request.params.username) {
+        try {
+          const user = jwt.verify(request.state.token);
+          User.findById(user._id, (err, user) => {
+            reply(user);
+          });
+        } catch (err) {reply(null);}
+      } else {
+        User.findOne({username: request.params.username}, (err, user) => {
+          reply(user);
+        });
+      }
+    }
+  },
+
+  {
     method: 'PUT',
     path: '/api/users/recents',
     handler: (request, reply) => {

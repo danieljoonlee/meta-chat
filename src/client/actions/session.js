@@ -1,10 +1,16 @@
-import {BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, RECENT_CHAT_UPDATE_SUCCESS} from './constants';
+import {
+  BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT,
+  RECENT_CHAT_UPDATE_SUCCESS,
+  REFRESH_CURRENT_USER
+} from './constants';
 import fetch from 'isomorphic-fetch';
 import cookie from 'js-cookie';
+import Socket from '../socket';
 
 export function logout() {
   return dispatch => {
     cookie.remove('token');
+    Socket.disconnect();
     dispatch({type: LOGOUT});
   }
 }
@@ -27,6 +33,7 @@ export function login(creds) {
       }).then(response => response.json())
         .then(json => {
           cookie.set('token', json.token);
+          Socket.init();
           return json.user;
         })
     }
@@ -51,4 +58,19 @@ export function updateRecentChat(user, partner) {
       }).then(response => response.json())
     }
   };
+}
+
+export function refreshCurrentUser() {
+  return {
+    types: [
+      null,
+      REFRESH_CURRENT_USER,
+      null
+    ],
+    payload: {
+      promise: fetch('http://localhost:3000/api/user', {
+        credentials: 'include'
+      }).then(response => response.json())
+    }
+  }
 }

@@ -5,16 +5,10 @@ import {Provider} from 'react-redux';
 import cookie from 'js-cookie';
 import routes from './components/Routes';
 import initStore from '../store';
-import socket from './socket';
-import {RECEIVE_ONE_MESSAGE} from './actions/constants';
-
-socket.emit('creds', cookie.get('token'));
-socket.on('message', message => store.dispatch({
-  type: RECEIVE_ONE_MESSAGE,
-  payload: message
-}));
+import Socket from './socket';
 
 const store = initStore(REDUX_INITIAL_STATE);
+Socket.init(store);
 
 const AppComponent = (
   <Provider store={store}>

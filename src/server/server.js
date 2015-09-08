@@ -3,6 +3,7 @@ import {Server} from 'hapi';
 import Inert from 'inert';
 import mongoose from 'mongoose';
 import ioInit from 'socket.io';
+import fetch from 'isomorphic-fetch';
 import jwt from '../jwt';
 
 //connect database
@@ -49,9 +50,18 @@ io.on('connection', socket => {
   });
 
   socket.on('message', (msg) => {
-    const partner = msg.user1 === msg.speaker ? msg.user2 : msg.user1;
-    const partnerSocketId = usernameSocketIdMap[partner];
-    socket.broadcast.to(partnerSocketId).emit('message', msg);
+    const receiver = msg.user1 === msg.speaker ? msg.user2 : msg.user1;
+    const receiverSocketId = usernameSocketIdMap[receiver];
+    socket.broadcast.to(receiverSocketId).emit('message', msg);
+
+    fetch('http://localhost:3000/api/users/recents', {
+      method: 'PUT',
+      body: JSON.stringify({user: receiver, partner: msg.speaker}), // add recent chat to par
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    });
   });
 });
 
