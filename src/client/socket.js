@@ -3,14 +3,15 @@ import cookie from 'js-cookie';
 import {receiveMessage} from './actions/chat';
 import {refreshCurrentUser} from './actions/session';
 
-//export default io('http://localhost:3000');
-
 export default {
-  init(store) {
-    if (store) {this.store = store;}
+  connect(store, url='http://localhost:3000') {
+    this.store = store;
+    this.socket = io(url, {multiplex: false});
+    this.login();
+  },
 
-    this.socket && this.socket.disconnect();
-    this.socket = io('http://localhost:3000', {multiplex: false});
+  login() {
+    if (this.socket) { this.socket.disconnect(); }
 
     if (cookie.get('token')) {
       this.socket.emit('creds', cookie.get('token'));
@@ -21,7 +22,7 @@ export default {
     }
   },
 
-  disconnect() {
-    this.socket && this.socket.disconnect();
+  logout() {
+    if (this.socket) { this.socket.disconnect(); }
   }
 }

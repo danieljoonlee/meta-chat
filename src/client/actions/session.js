@@ -10,7 +10,7 @@ import Socket from '../socket';
 export function logout() {
   return dispatch => {
     cookie.remove('token');
-    Socket.disconnect();
+    Socket.logout();
     dispatch({type: LOGOUT});
   }
 }
@@ -33,7 +33,7 @@ export function login(creds) {
       }).then(response => response.json())
         .then(json => {
           cookie.set('token', json.token);
-          Socket.init();
+          Socket.login();
           return json.user;
         })
     }

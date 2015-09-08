@@ -8,7 +8,8 @@ import initStore from '../store';
 import Socket from './socket';
 
 const store = initStore(REDUX_INITIAL_STATE);
-Socket.init(store);
+
+Socket.connect(store);
 
 const AppComponent = (
   <Provider store={store}>
