@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const ObjectId = mongoose.Schema.ObjectId;
-const userSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema({
   username: String,
   email: String,
   password: String,
@@ -10,14 +10,14 @@ const userSchema = mongoose.Schema({
   recentChats: [String]
 });
 
-userSchema.set('toJSON', {
+UserSchema.set('toJSON', {
   transform: function(doc, ret) {
     delete ret.password;
     return ret;
   }
 });
 
-userSchema.statics.findUserAndPushRecentChat = function(username, newPartner, callback) {
+UserSchema.statics.findUserAndPushRecentChat = function(username, newPartner, callback) {
   return this.findOne({username}, (err, user) => {
     user.recentChats = [newPartner]
       .concat([...user.recentChats].filter(partner => partner !== newPartner))
@@ -26,4 +26,4 @@ userSchema.statics.findUserAndPushRecentChat = function(username, newPartner, ca
   });
 };
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model('User', UserSchema);

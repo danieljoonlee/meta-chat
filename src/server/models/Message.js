@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const messageSchema = mongoose.Schema({
+const MessageSchema = mongoose.Schema({
   user1: String,
   user2: String,
   speaker: String,
@@ -8,9 +8,11 @@ const messageSchema = mongoose.Schema({
   expanded: {type: Boolean, default: false}
 });
 
-messageSchema.statics.findByUsers = function(u1, u2, cb) {
+MessageSchema.add({subMessages: [MessageSchema]});
+
+MessageSchema.statics.findByUsers = function(u1, u2, cb) {
   const [user1, user2] = [u1, u2].sort();
   return this.find({user1, user2}, cb);
 };
 
-export default mongoose.model('Message', messageSchema);
+export default mongoose.model('Message', MessageSchema);
