@@ -5,10 +5,9 @@ const MessageSchema = mongoose.Schema({
   user2: String,
   speaker: String,
   content: String,
+  parent: mongoose.Schema.ObjectId,
   expanded: {type: Boolean, default: false}
 });
-
-MessageSchema.add({subMessages: [MessageSchema]});
 
 MessageSchema.statics.findByUsers = function(u1, u2, cb) {
   const [user1, user2] = [u1, u2].sort();

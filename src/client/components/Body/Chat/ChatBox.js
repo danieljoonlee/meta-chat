@@ -8,25 +8,34 @@ export default class ChatBox extends Component {
   }
 
   render() {
-    const chatMessage = message => (
-      <div key={message._id}>
-        <div data-id={message._id} onClick={this.toggle}>{message.speaker} says: {message.content}</div>
-        {
-          message.expanded &&
-          <ChatBox
-            messages={message.subMessages}
-            sendMessage={this.props.sendMessage}
-            partner={this.props.partner}
-          />
-        }
-      </div>
-    );
+    const chatMessage = message => {
+      const chatBox = (
+        <ChatBox
+          {...this.props}
+          messages={message.subMessages}
+          parent={message._id}
+        />
+      );
+
+      return (
+        <div key={message._id}>
+          <div data-id={message._id} onClick={this.toggle}>
+            {message.speaker} says: {message.content}
+          </div>
+          {message.expanded && chatBox}
+        </div>
+      );
+    };
+
     return (
       <div>
         <ul>
           {this.props.messages && this.props.messages.map(message => chatMessage(message))}
         </ul>
-        <input name="messageInput" onKeyPress={this.submit}/>
+        <form onSubmit={this.submit}>
+          <input/>
+          <button>send</button>
+        </form>
       </div>
     );
   }
@@ -37,13 +46,16 @@ export default class ChatBox extends Component {
   }
 
   submit(evt) {
-    if (evt.which === 13) {
-      const message = {
-        partner: this.props.partner,
-        content: evt.target.value
-      };
-      this.props.sendMessage(message);
-      evt.target.value = '';
-    }
+    evt.preventDefault();
+
+    const messageInputEl = evt.target.querySelector('input');
+    const message = {
+      parent: this.props.parent,
+      partner: this.props.partner,
+      content: messageInputEl.value
+    };
+
+    this.props.sendMessage(message);
+    messageInputEl.value = '';
   }
 }

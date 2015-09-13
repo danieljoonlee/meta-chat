@@ -56,7 +56,7 @@ io.on('connection', socket => {
 
     fetch('http://localhost:3000/api/users/recents', {
       method: 'PUT',
-      body: JSON.stringify({user: receiver, partner: msg.speaker}), // add recent chat to par
+      body: JSON.stringify({user: receiver, partner: msg.speaker}),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

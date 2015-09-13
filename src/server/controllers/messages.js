@@ -26,6 +26,7 @@ export default [
           user1,
           user2,
           speaker: user.username,
+          parent: request.payload.parent,
           content: request.payload.content
         };
         Message.create(newMessage, (err, message) => reply(message));
