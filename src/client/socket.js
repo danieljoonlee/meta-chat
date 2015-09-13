@@ -11,8 +11,6 @@ export default {
   },
 
   login() {
-    if (this.socket) { this.socket.disconnect(); }
-
     if (cookie.get('token')) {
       this.socket.emit('creds', cookie.get('token'));
       this.socket.on('message', message => {
