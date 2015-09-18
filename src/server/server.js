@@ -32,6 +32,7 @@ server.route(messagesController);
 const socketIdUsernameMap = {};
 const usernameSocketIdMap = {};
 const io = ioInit(server.listener);
+
 io.on('connection', socket => {
   socket.on('creds', token => {
     try {

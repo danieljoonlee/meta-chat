@@ -9,7 +9,7 @@ import Socket from './socket';
 
 const store = initStore(REDUX_INITIAL_STATE);
 
-Socket.connect(store);
+Socket.init(store);
 
 const AppComponent = (
   <Provider store={store}>

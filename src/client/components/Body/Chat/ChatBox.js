@@ -30,7 +30,7 @@ export default class ChatBox extends Component {
     return (
       <div>
         <ul>
-          {this.props.messages && this.props.messages.map(message => chatMessage(message))}
+          {this.props.messages ? this.props.messages.map(chatMessage) : null}
         </ul>
         <form onSubmit={this.submit}>
           <input/>
