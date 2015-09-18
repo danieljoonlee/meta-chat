@@ -19,7 +19,7 @@ export default class Nav extends Component {
         <li><Link to="/users">Browse Users</Link></li>
         <li>
           RecentChats
-          {this.props.currentUser.recentChats.length > 0 ? recentChats : ''}
+          {this.props.currentUser.recentChats.length > 0 ? recentChats : null}
         </li>
       </ul>
     );
