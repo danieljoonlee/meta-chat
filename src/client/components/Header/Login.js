@@ -14,7 +14,7 @@ export default class Auth extends Component {
         {this.props.error}
         <form onSubmit={this.login}>
           Username: <input name="username"/>
-          Password: <input name="password"/>
+          Password: <input name="password" type="password"/>
           <button>Sign in</button>
           or <Link to="/register">Register</Link>
         </form>
