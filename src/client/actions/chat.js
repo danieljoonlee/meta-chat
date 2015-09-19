@@ -1,4 +1,4 @@
-import {REQUEST_MESSAGES, RECEIVE_MESSAGES, RECEIVE_ONE_MESSAGE, TOGGLE_MESSAGE_EXPAND} from './constants';
+import {REQUEST_MESSAGES, RECEIVE_MESSAGES, RECEIVE_ONE_MESSAGE, TOGGLE_MESSAGE_EXPAND, LEAVE_CHAT} from './constants';
 import fetch from 'isomorphic-fetch';
 import Socket from '../socket';
 
@@ -71,5 +71,11 @@ export function toggleMessageExpand(id) {
       //}),
       data: id
     }
+  }
+}
+
+export function leaveChatActionCreator() {
+  return {
+    type: LEAVE_CHAT
   }
 }

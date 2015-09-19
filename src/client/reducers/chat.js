@@ -1,4 +1,4 @@
-import {REQUEST_MESSAGES, RECEIVE_MESSAGES, RECEIVE_ONE_MESSAGE, TOGGLE_MESSAGE_EXPAND} from '../actions/constants';
+import {REQUEST_MESSAGES, RECEIVE_MESSAGES, RECEIVE_ONE_MESSAGE, TOGGLE_MESSAGE_EXPAND, LEAVE_CHAT} from '../actions/constants';
 import * as util from '../../util';
 
 const defaultState = {
@@ -16,6 +16,8 @@ export default (state=defaultState, action) => {
       return {...state, messages: [...state.messages, action.payload]};
     case TOGGLE_MESSAGE_EXPAND:
       return {...state, messages: toggleExpand(state.messages, action.payload)};
+    case LEAVE_CHAT:
+      return {...state, partner: null};
     default:
       return state;
   }

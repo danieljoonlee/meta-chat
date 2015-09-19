@@ -1,7 +1,6 @@
-import {fetchMessages} from './actions/chat';
+import {fetchMessages, leaveChatActionCreator} from './actions/chat';
 import {updateRecentChat} from './actions/session';
 import {fetchUsers} from './actions/userBrowser';
-
 
 export const startChat = store => (routerState, transition, done) => {
   const partner = routerState.params.partner;
@@ -11,6 +10,10 @@ export const startChat = store => (routerState, transition, done) => {
     store.dispatch(updateRecentChat(currentUser, partner)),
     store.dispatch(fetchMessages(partner))
   ]).then(() => {done()})
+};
+
+export const leaveChat = store => () => {
+  store.dispatch(leaveChatActionCreator());
 };
 
 export const fetchUserData = store => (state, transition, done) => {
