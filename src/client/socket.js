@@ -7,12 +7,13 @@ export default {
   init(store, url='http://localhost:3000') {
     this.store = store;
     this.url = url;
+    this.login();
   },
 
   login() {
-    this._reconnect();
-
     if (cookie.get('token')) {
+      this._reconnect();
+
       this.socket.emit('creds', cookie.get('token'));
       this.socket.on('message', message => {
         this.store.dispatch(receiveMessage(message));
