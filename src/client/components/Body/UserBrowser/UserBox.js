@@ -18,7 +18,7 @@ export default class UserBox extends Component {
           <li className="js-userbox-username">Name: {this.props.username}</li>
           <li>I speak: {util.capitalize(this.props.speaking)}</li>
           <li>I'm learning: {util.capitalize(this.props.learning)}</li>
-          {this.props.currentUser.username ? startChatLink : ''}
+          {this.props.currentUser.username ? startChatLink : null}
         </ul>
       </div>
     );

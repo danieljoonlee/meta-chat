@@ -7,7 +7,7 @@ const UserSchema = mongoose.Schema({
   password: String,
   speaking: String,
   learning: String,
-  recentChats: [String]
+  recentChats: [{username: String, unread: {type: Boolean, default: true}}]
 });
 
 UserSchema.set('toJSON', {
@@ -17,13 +17,21 @@ UserSchema.set('toJSON', {
   }
 });
 
-UserSchema.statics.findUserAndPushRecentChat = function(username, newPartner, callback) {
-  return this.findOne({username}, (err, user) => {
-    user.recentChats = [newPartner]
-      .concat([...user.recentChats].filter(partner => partner !== newPartner))
-      .slice(0, 10);
-    user.save(callback);
-  });
+UserSchema.statics.findUserAndPushRecentChat = function({user, partner, unread}, callback) {
+  this.update({username: user}, {
+    $pull: {
+      recentChats: {username: partner}
+    }
+  }).exec();
+
+  this.update({username: user}, {
+    $addToSet: {
+      recentChats: {
+        $each: [{username: partner, unread: unread}],
+        $slice: -10
+      }
+    }
+  }, callback);
 };
 
 export default mongoose.model('User', UserSchema);

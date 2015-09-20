@@ -3,9 +3,9 @@ import {Link} from 'react-router';
 
 export default class Nav extends Component {
   render() {
-    const recentChat = (name) => {
-      const chatUrl = `/chat/${name}`;
-      return (<li key={name}><Link to={chatUrl}>{name}</Link></li>);
+    const recentChat = (recent) => {
+      const chatUrl = `/chat/${recent.username}`;
+      return (<li key={recent._id} class={recent.unread ? "unread" : ""}><Link to={chatUrl}>{recent.username}</Link></li>);
     };
 
     const recentChats = (
