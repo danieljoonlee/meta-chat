@@ -1,7 +1,7 @@
 import React from 'react';
-import Router from 'react-router';
+import { RoutingContext, match } from 'react-router';
 import {Provider} from 'react-redux';
-import Location from 'react-router/lib/Location';
+import createLocation from 'history/lib/createLocation';
 import jwt from '../jwt';
 import initStore from '../store';
 import routes from '../client/components/Routes';
@@ -15,13 +15,13 @@ export default {
     const store = initStore();
     await setUserSession(store, request.state);
 
-    const location = new Location(request.path || '/');
+    const location = createLocation(request.path || '/');
 
-    Router.run(routes(store), location, (err, initialState) => {
+    match({routes: routes(store), location}, (err, redirectLocation, renderProps) => {
       try {
         const AppComponent = (
           <Provider store={store}>
-            {() => <Router {...initialState}/>}
+            {() => <RoutingContext {...renderProps}/>}
           </Provider>
         );
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Router from 'react-router';
-import {history} from 'react-router/lib/BrowserHistory';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 import {Provider} from 'react-redux';
 import cookie from 'js-cookie';
 import routes from './components/Routes';
@@ -13,7 +13,7 @@ Socket.init(store);
 
 const AppComponent = (
   <Provider store={store}>
-    {() => <Router children={routes(store)} history={history}/>}
+    {() => <Router children={routes(store)} history={createBrowserHistory()}/>}
   </Provider>
 );
 
