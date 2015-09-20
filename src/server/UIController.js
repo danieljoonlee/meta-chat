@@ -51,6 +51,14 @@ function template(context) {
   const bundleUrl = process.env.NODE_ENV === 'production' ? '/bundle.js' : 'http://localhost:3001/assets/bundle.js';
 
   return `
+    <style>
+      .js-recent-unread {
+        background-color: pink;
+      }
+      .js-nested-messages {
+        background-color: yellow;
+      }
+    </style>
     <div id="content">${context.reactString}</div>
     <script>window.REDUX_INITIAL_STATE = ${context.seededState}</script>
     <script src="${bundleUrl}"></script>
