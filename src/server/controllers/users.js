@@ -50,7 +50,7 @@ export default [
     method: 'PUT',
     path: '/api/users/recents',
     handler: (request, reply) => {
-      User.findUserAndPushRecentChat(request.payload, (err, user) => reply(user.recentChats));
+      User.findUserAndPushRecentChat(request.payload, (err, user) => {reply(user.recentChats)});
     }
   }
 ];

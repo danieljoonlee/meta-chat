@@ -40,7 +40,7 @@ export function login(creds) {
   };
 }
 
-export function updateRecentChat(user, partner, unread) {
+export function updateRecentChat({user, partner, unread}) {
   return {
     types: [
       null,

@@ -24,14 +24,14 @@ UserSchema.statics.findUserAndPushRecentChat = function({user, partner, unread},
     }
   }).exec();
 
-  this.update({username: user}, {
+  this.findOneAndUpdate({username: user}, {
     $addToSet: {
       recentChats: {
         $each: [{username: partner, unread: unread}],
         $slice: -10
       }
     }
-  }, callback);
+  }, {new: true}, callback);
 };
 
 export default mongoose.model('User', UserSchema);

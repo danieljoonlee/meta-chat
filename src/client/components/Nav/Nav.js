@@ -5,7 +5,7 @@ export default class Nav extends Component {
   render() {
     const recentChat = (recent) => {
       const chatUrl = `/chat/${recent.username}`;
-      return (<li key={recent._id} class={recent.unread ? "unread" : ""}><Link to={chatUrl}>{recent.username}</Link></li>);
+      return (<li key={recent._id} className={recent.unread ? "js-recent-unread" : ""}><Link to={chatUrl}>{recent.username}</Link></li>);
     };
 
     const recentChats = (

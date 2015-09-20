@@ -7,7 +7,7 @@ export const startChat = store => (routerState, transition, done) => {
   const currentUser = store.getState().session.currentUser.username;
 
   Promise.all([
-    store.dispatch(updateRecentChat(currentUser, partner)),
+    store.dispatch(updateRecentChat({user: currentUser, partner, unread: false})),
     store.dispatch(fetchMessages(partner))
   ]).then(() => {done()})
 };

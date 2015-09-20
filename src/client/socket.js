@@ -13,12 +13,8 @@ export default {
   login() {
     if (cookie.get('token')) {
       this._reconnect();
-
       this.socket.emit('creds', cookie.get('token'));
-      this.socket.on('message', message => {
-        this.store.dispatch(receiveMessage(message));
-        this.store.dispatch(refreshCurrentUser())
-      });
+      this._setEventListeners(this.socket, this.store);
     }
   },
 
@@ -29,5 +25,17 @@ export default {
   _reconnect() {
     if (this.socket) { this.logout(); }
     this.socket = io(this.url, {multiplex: false});
+  },
+
+  _setEventListeners(socket, store) {
+    socket.on('message', message => {
+      if (message.speaker === store.getState().chat.partner) {
+        const currentUser = store.getState().session.currentUser.username;
+        store.dispatch(receiveMessage({...message, unread: false}));
+        store.dispatch(updateRecentChat({user: currentUser, partner: message.speaker, unread: false}));
+      } else {
+        store.dispatch(refreshCurrentUser())
+      }
+    });
   }
 }
