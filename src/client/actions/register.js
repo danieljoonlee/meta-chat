@@ -2,6 +2,7 @@ import {BEGIN_REGISTRATION, REGISTRATION_SUCCESS, REGISTRATION_FAILURE} from './
 import fetch from 'isomorphic-fetch';
 import cookie from 'js-cookie';
 import Socket from '../socket';
+import history from '../history';
 
 export function register(newUserData){
   return {
@@ -22,6 +23,7 @@ export function register(newUserData){
         .then(json => {
           cookie.set('token', json.token);
           Socket.login();
+          history.replaceState(null, '/users');
           return json.user;
         })
     }

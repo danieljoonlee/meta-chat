@@ -6,11 +6,13 @@ import {
 import fetch from 'isomorphic-fetch';
 import cookie from 'js-cookie';
 import Socket from '../socket';
+import history from '../history';
 
 export function logout() {
   return dispatch => {
     cookie.remove('token');
     Socket.logout();
+    history.replaceState(null, '/users');
     dispatch({type: LOGOUT});
   }
 }
