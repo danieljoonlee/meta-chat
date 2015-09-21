@@ -20,7 +20,7 @@ export default (state=defaultState, action) => {
     case LOGIN_SUCCESS:
     case REGISTRATION_SUCCESS:
     case REFRESH_CURRENT_USER:
-      return {...state, loading: false, currentUser: action.payload};
+      return {...state, loading: false, currentUser: {...state.currentUser, ...action.payload}};
     case LOGIN_FAILURE:
       return {...state, loading: false, error: 'wrong creds'};
     case LOGOUT:
