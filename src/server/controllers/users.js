@@ -21,7 +21,7 @@ export default [
     method: 'GET',
     path: '/api/users',
     handler: (request, reply) => {
-      User.find((err, users) => {
+      User.find({}, {recentChats: 0}, (err, users) => {
         reply(users);
       });
     }
