@@ -24,7 +24,7 @@ export function register(newUserData){
           cookie.set('token', json.token);
           Socket.login();
           history.replaceState(null, '/users');
-          return json.user;
+          return json;
         })
     }
   };

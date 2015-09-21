@@ -42,7 +42,7 @@ async function setUserSession(store, cookie) {
     var user = await User.findById(jwtUser._id);
     store.dispatch({
       type: LOGIN_SUCCESS,
-      payload: {...user.toJSON()}
+      payload: {...user.toJSON(), token: cookie.token}
     });
   } catch (err) {}
 }

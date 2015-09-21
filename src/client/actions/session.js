@@ -36,7 +36,7 @@ export function login(creds) {
         .then(json => {
           cookie.set('token', json.token);
           Socket.login();
-          return json.user;
+          return json;
         })
     }
   };

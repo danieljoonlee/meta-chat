@@ -12,7 +12,7 @@ export default [
         if (user) {
           bcrypt.compare(password, user.password, (err, res) => {
             if (res) {
-              reply({user: user.toJSON(), token: jwt.sign(user.toJSON())});
+              reply({...user.toJSON(), token: jwt.sign(user.toJSON())});
             } else {
               reply(null);
             }

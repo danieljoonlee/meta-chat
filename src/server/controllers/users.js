@@ -11,7 +11,7 @@ export default [
         const userData = {...request.payload, password: hash};
         const user = new User(userData);
         user.save((err, user) => {
-          reply({user: user.toJSON(), token: jwt.sign(user.toJSON())});
+          reply({...user.toJSON(), token: jwt.sign(user.toJSON())});
         });
       });
     }
