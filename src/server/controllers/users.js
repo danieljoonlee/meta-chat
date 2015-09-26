@@ -33,7 +33,7 @@ export default [
     handler: (request, reply) => {
       if (!request.params.username) {
         try {
-          const user = jwt.verify(request.state.token);
+          const user = jwt.verify(request.headers.authorization);
           User.findById(user._id, (err, user) => {
             reply(user);
           });

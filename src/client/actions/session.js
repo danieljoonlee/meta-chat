@@ -64,15 +64,18 @@ export function updateRecentChat({user, partner, unread}) {
 
 export function refreshCurrentUser() {
   return {
-    types: [
-      null,
-      REFRESH_CURRENT_USER,
-      null
-    ],
-    payload: {
-      promise: fetch('http://localhost:3000/api/user', {
-        credentials: 'include'
-      }).then(response => response.json())
+    auth(fetch) {
+      return {
+        types: [
+          null,
+          REFRESH_CURRENT_USER,
+          null
+        ],
+        payload: {
+          promise: fetch('http://localhost:3000/api/user')
+            .then(response => response.json())
+        }
+      }
     }
   }
 }
