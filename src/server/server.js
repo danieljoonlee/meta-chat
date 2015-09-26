@@ -9,7 +9,7 @@ import fetch from 'isomorphic-fetch';
 import jwt from '../jwt';
 
 //connect database
-mongoose.connect('mongodb://localhost/red');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/red');
 
 //start server
 const app = express();
