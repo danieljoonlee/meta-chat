@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   entry: './src/client/client.js',
@@ -14,5 +15,8 @@ module.exports = {
         include: path.join(__dirname, 'src')
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 }
