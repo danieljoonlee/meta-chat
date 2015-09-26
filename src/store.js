@@ -23,7 +23,7 @@ const middlewares = [
   authMiddleware,
   thunkMiddleware,
   promiseMiddleware,
-  //loggerMiddleware
+  loggerMiddleware
 ];
 
 const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);

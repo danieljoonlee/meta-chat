@@ -29,7 +29,6 @@ export function login(creds) {
         method: 'POST',
         body: JSON.stringify(creds),
         headers: {
-          'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
       }).then(response => response.json())
@@ -54,7 +53,6 @@ export function updateRecentChat({user, partner, unread}) {
         method: 'PUT',
         body: JSON.stringify({user, partner, unread}),
         headers: {
-          'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
       }).then(response => response.json())

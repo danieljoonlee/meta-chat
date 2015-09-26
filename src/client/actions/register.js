@@ -16,7 +16,6 @@ export function register(newUserData){
         method: 'POST',
         body: JSON.stringify(newUserData),
         headers: {
-          'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
       }).then(response => response.json())
