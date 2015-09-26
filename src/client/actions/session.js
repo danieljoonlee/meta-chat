@@ -7,6 +7,7 @@ import fetch from 'isomorphic-fetch';
 import cookie from 'js-cookie';
 import Socket from '../socket';
 import history from '../history';
+import {DOMAIN} from '../../config';
 
 export function logout() {
   return dispatch => {
@@ -49,7 +50,7 @@ export function updateRecentChat({user, partner, unread}) {
       null
     ],
     payload: {
-      promise: fetch('http://localhost:3000/api/users/recents', {
+      promise: fetch(`${DOMAIN}/api/users/recents`, {
         method: 'PUT',
         body: JSON.stringify({user, partner, unread}),
         headers: {
@@ -70,7 +71,7 @@ export function refreshCurrentUser(username) {
           null
         ],
         payload: {
-          promise: fetch('http://localhost:3000/api/users/${username}')
+          promise: fetch(`${DOMAIN}/api/users/${username}`)
             .then(response => response.json())
         }
       }

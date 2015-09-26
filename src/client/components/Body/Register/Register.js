@@ -1,4 +1,3 @@
-import 'isomorphic-fetch'
 import React, {Component} from 'react';
 import serialize from 'form-serialize';
 import LanguageOptions from '../../LanguageOptions';

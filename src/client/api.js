@@ -24,6 +24,6 @@ export const fetchUserData = store => (state, transition, done) => {
   if (store.getState().userBrowser.users.length > 0) {
     done();
   } else {
-    store.dispatch(fetchUsers()).then(()=> done());
+    store.dispatch(fetchUsers()).then(()=> {done()});
   }
 };

@@ -2,9 +2,10 @@ import io from 'socket.io-client';
 import cookie from 'js-cookie';
 import {receiveMessage} from './actions/chat';
 import {refreshCurrentUser} from './actions/session';
+import {DOMAIN} from '../config';
 
 export default {
-  init(store, url='http://localhost:3000') {
+  init(store, url=DOMAIN) {
     this.store = store;
     this.url = url;
     this.login();

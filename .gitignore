@@ -1,6 +1,6 @@
 node_modules
 npm-debug.log
-dist/
+static/bundle.js
 *.swp
 .DS_Store
 /*.env

@@ -6,6 +6,7 @@ import socketio from 'socket.io';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import fetch from 'isomorphic-fetch';
+import {DOMAIN} from '../config';
 import jwt from '../jwt';
 
 //connect database
@@ -58,7 +59,7 @@ io.on('connection', socket => {
     const receiverSocketId = usernameSocketIdMap[receiver];
     socket.broadcast.to(receiverSocketId).emit('message', msg);
 
-    fetch('http://localhost:3000/api/users/recents', {
+    fetch(`${DOMAIN}/api/users/recents`, {
       method: 'PUT',
       body: JSON.stringify({user: receiver, partner: msg.speaker}),
       headers: {

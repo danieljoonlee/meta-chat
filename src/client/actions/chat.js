@@ -1,4 +1,5 @@
 import {REQUEST_MESSAGES, RECEIVE_MESSAGES, RECEIVE_ONE_MESSAGE, TOGGLE_MESSAGE_EXPAND, LEAVE_CHAT} from './constants';
+import {DOMAIN} from '../../config';
 import Socket from '../socket';
 
 export function fetchMessages(partner){
@@ -11,7 +12,7 @@ export function fetchMessages(partner){
           null
         ],
         payload: {
-          promise: fetch(`http://localhost:3000/api/messages/${partner}`)
+          promise: fetch(`${DOMAIN}/api/messages/${partner}`)
             .then(response => response.json()),
           data: partner
         }
@@ -37,7 +38,7 @@ export function sendMessage(content) {
           null
         ],
         payload: {
-          promise: fetch('http://localhost:3000/api/messages', {
+          promise: fetch(`${DOMAIN}/api/messages`, {
             method: 'POST',
             body: JSON.stringify(content),
             headers: {

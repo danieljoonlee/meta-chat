@@ -1,5 +1,6 @@
 import {REQUEST_USERS, RECEIVE_USERS, FILTER_USERS} from './constants';
 import fetch from 'isomorphic-fetch';
+import {DOMAIN} from '../../config';
 
 export function fetchUsers() {
   return {
@@ -9,7 +10,7 @@ export function fetchUsers() {
       null
     ],
     payload: {
-      promise: fetch('http://localhost:3000/api/users').then(response => (response.json()))
+      promise: fetch(`${DOMAIN}/api/users`).then(response => (response.json()))
     }
   }
 }
