@@ -1,8 +1,10 @@
 import path from 'path';
-import {Server} from 'hapi';
-import Inert from 'inert';
+import http from 'http';
+import express from 'express';
 import mongoose from 'mongoose';
-import ioInit from 'socket.io';
+import socketio from 'socket.io';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import fetch from 'isomorphic-fetch';
 import jwt from '../jwt';
 
@@ -10,28 +12,29 @@ import jwt from '../jwt';
 mongoose.connect('mongodb://localhost/red');
 
 //start server
-const server = new Server();
-server.connection({port: 3000});
-server.start(() => {
-  console.log('listening at port 3000');
-});
+const app = express();
+const server = http.Server(app);
+const port = process.env.PORT || 3000;
 
-//static files plugin
-server.register(Inert, ()=>{});
+server.listen(port, () => console.log(`server listening at ${port}`));
+
+//middleware
+app.use(express.static('static'));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 //API routes
-import usersController from './controllers/users';
-import sessionsController from './controllers/sessions';
-import messagesController from './controllers/messages';
+import APIController from './APIController';
+app.use('/api', APIController);
 
-server.route(usersController);
-server.route(sessionsController);
-server.route(messagesController);
+//UI routes
+import UIController from './UIController';
+app.use('/', UIController);
 
 //socket io
+const io = socketio(server);
 const socketIdUsernameMap = {};
 const usernameSocketIdMap = {};
-const io = ioInit(server.listener);
 
 io.on('connection', socket => {
   socket.on('creds', token => {
@@ -64,33 +67,4 @@ io.on('connection', socket => {
       }
     });
   });
-});
-
-//client-side routes
-import UIController from './UIController';
-server.route(UIController);
-
-server.route({
-  method: 'GET',
-  path: '/bundle.js',
-  handler: (request, reply) => {
-    reply.file(path.join(__dirname, '../../dist/bundle.js'));
-  }
-});
-
-// serve static files at /static
-server.route({
-  method: 'GET',
-  path: '/static/{param*}',
-  handler: (request, reply) => {
-    reply.file(path.join(__dirname, '../../', request.path));
-  }
-});
-
-server.route({
-  method: 'GET',
-  path: '/favicon.ico',
-  handler: (request, reply) => {
-    reply.file(path.join(__dirname, '../../static/favicon.ico'));
-  }
 });

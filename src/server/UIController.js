@@ -2,47 +2,46 @@ import React from 'react';
 import { RoutingContext, match } from 'react-router';
 import {Provider} from 'react-redux';
 import createLocation from 'history/lib/createLocation';
+import {Router} from 'express';
 import jwt from '../jwt';
 import initStore from '../store';
 import routes from '../client/components/Routes';
 import {LOGIN_SUCCESS} from '../client/actions/constants';
 import User from './models/User';
 
-export default {
-  method: 'GET',
-  path: '/{param*}',
-  handler: async (request, reply) => {
-    const store = initStore();
-    await setUserSession(store, request.state);
+const router = Router();
 
-    const location = createLocation(request.path || '/');
+router.get('/:params?*', async (req, res) => {
+  const store = initStore();
+  const location = createLocation(req.path || '/');
 
-    match({routes: routes(store), location}, (err, redirectLocation, renderProps) => {
-      try {
-        const AppComponent = (
-          <Provider store={store}>
-            {() => <RoutingContext {...renderProps}/>}
-          </Provider>
-        );
+  await setUserSession(store, req.cookies.token);
 
-        const reactString = React.renderToString(AppComponent);
-        const seededState = JSON.stringify(store.getState());
+  match({routes: routes(store), location}, (err, redirectLocation, renderProps) => {
+    try {
+      const AppComponent = (
+        <Provider store={store}>
+          {() => <RoutingContext {...renderProps}/>}
+        </Provider>
+      );
 
-        reply(template({reactString, seededState}));
-      } catch (err) {
-        console.log(err, err.stack);
-      }
-    });
-  }
-};
+      const reactString = React.renderToString(AppComponent);
+      const seededState = JSON.stringify(store.getState());
 
-async function setUserSession(store, cookie) {
+      res.send(template({reactString, seededState}));
+    } catch (err) {
+      console.log(err, err.stack);
+    }
+  });
+});
+
+async function setUserSession(store, token) {
   try {
-    const jwtUser = jwt.verify(cookie.token);
+    const jwtUser = jwt.verify(token);
     var user = await User.findById(jwtUser._id);
     store.dispatch({
       type: LOGIN_SUCCESS,
-      payload: {...user.toJSON(), token: cookie.token}
+      payload: {...user.toJSON(), token}
     });
   } catch (err) {}
 }
@@ -64,3 +63,5 @@ function template(context) {
     <script src="${bundleUrl}"></script>
   `;
 }
+
+export default router;

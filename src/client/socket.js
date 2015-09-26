@@ -29,12 +29,13 @@ export default {
 
   _setEventListeners(socket, store) {
     socket.on('message', message => {
+      const currentUser = store.getState().session.currentUser.username;
+
       if (message.speaker === store.getState().chat.partner) {
-        const currentUser = store.getState().session.currentUser.username;
         store.dispatch(receiveMessage({...message, unread: false}));
         store.dispatch(updateRecentChat({user: currentUser, partner: message.speaker, unread: false}));
       } else {
-        store.dispatch(refreshCurrentUser())
+        store.dispatch(refreshCurrentUser(currentUser))
       }
     });
   }

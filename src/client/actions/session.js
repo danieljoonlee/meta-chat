@@ -25,7 +25,7 @@ export function login(creds) {
       LOGIN_FAILURE
     ],
     payload: {
-      promise: fetch('/api/login', {
+      promise: fetch('/api/sessions', {
         method: 'POST',
         body: JSON.stringify(creds),
         headers: {
@@ -60,7 +60,7 @@ export function updateRecentChat({user, partner, unread}) {
   };
 }
 
-export function refreshCurrentUser() {
+export function refreshCurrentUser(username) {
   return {
     auth(fetch) {
       return {
@@ -70,7 +70,7 @@ export function refreshCurrentUser() {
           null
         ],
         payload: {
-          promise: fetch('http://localhost:3000/api/user')
+          promise: fetch('http://localhost:3000/api/users/${username}')
             .then(response => response.json())
         }
       }
