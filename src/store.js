@@ -12,9 +12,8 @@ const authMiddleware = store => next => action => {
     return next(action);
   }
   const token = store.getState().session.currentUser.token;
-  function authFetch(url, options) {
-    if (typeof options.body === 'string') {options.body = JSON.parse(options.body);}
-    return fetch(url, {...options, body: JSON.stringify({...options.body, token})});
+  function authFetch(url, options={}) {
+    return fetch(url, {...options, headers: {...options.headers, Authorization: token}});
   }
 
   return next(action.auth(authFetch));
@@ -24,7 +23,7 @@ const middlewares = [
   authMiddleware,
   thunkMiddleware,
   promiseMiddleware,
-  loggerMiddleware
+  //loggerMiddleware
 ];
 
 const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);

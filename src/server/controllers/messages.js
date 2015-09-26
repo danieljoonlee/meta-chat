@@ -3,11 +3,11 @@ import jwt from '../../jwt';
 
 export default [
   {
-    method: 'POST',
+    method: 'GET',
     path: '/api/messages/{partner}',
     handler: (request, reply) => {
       try {
-        const user = jwt.verify(request.payload.token);
+        const user = jwt.verify(request.headers.authorization);
         const users = [request.params.partner, user.username]
           .map(name => name.toLowerCase())
           .sort();
@@ -20,7 +20,7 @@ export default [
     path: '/api/messages',
     handler: (request, reply) => {
       try {
-        const user = jwt.verify(request.payload.token);
+        const user = jwt.verify(request.headers.authorization);
         const [user1, user2] = [user.username, request.payload.partner].sort();
         const newMessage = {
           user1,

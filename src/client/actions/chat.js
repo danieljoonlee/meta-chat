@@ -11,14 +11,8 @@ export function fetchMessages(partner){
           null
         ],
         payload: {
-          promise: fetch(`http://localhost:3000/api/messages/${partner}`, {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              body: JSON.stringify({})
-            }
-          }).then(response => response.json()),
+          promise: fetch(`http://localhost:3000/api/messages/${partner}`)
+            .then(response => response.json()),
           data: partner
         }
       }
