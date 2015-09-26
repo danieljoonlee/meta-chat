@@ -1,19 +1,27 @@
 import {REQUEST_MESSAGES, RECEIVE_MESSAGES, RECEIVE_ONE_MESSAGE, TOGGLE_MESSAGE_EXPAND, LEAVE_CHAT} from './constants';
-import fetch from 'isomorphic-fetch';
 import Socket from '../socket';
 
 export function fetchMessages(partner){
   return {
-    types: [
-      REQUEST_MESSAGES,
-      RECEIVE_MESSAGES,
-      null
-    ],
-    payload: {
-      promise: fetch(`http://localhost:3000/api/messages/${partner}`, {
-        credentials: 'include'
-      }).then(response => response.json()),
-      data: partner
+    auth(fetch) {
+      return{
+        types: [
+          REQUEST_MESSAGES,
+          RECEIVE_MESSAGES,
+          null
+        ],
+        payload: {
+          promise: fetch(`http://localhost:3000/api/messages/${partner}`, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              body: JSON.stringify({})
+            }
+          }).then(response => response.json()),
+          data: partner
+        }
+      }
     }
   };
 }
@@ -27,25 +35,28 @@ export function receiveMessage(message) {
 
 export function sendMessage(content) {
   return {
-    types: [
-      null,
-      RECEIVE_ONE_MESSAGE,
-      null
-    ],
-    payload: {
-      promise: fetch('http://localhost:3000/api/messages', {
-        method: 'POST',
-        body: JSON.stringify(content),
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+    auth(fetch) {
+      return {
+        types: [
+          null,
+          RECEIVE_ONE_MESSAGE,
+          null
+        ],
+        payload: {
+          promise: fetch('http://localhost:3000/api/messages', {
+            method: 'POST',
+            body: JSON.stringify(content),
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          }).then(response => response.json())
+            .then(message => {
+              Socket.socket.emit('message', message);
+              return message;
+            })
         }
-      }).then(response => response.json())
-        .then(message => {
-          Socket.socket.emit('message', message);
-          return message;
-        })
+      }
     }
   };
 }

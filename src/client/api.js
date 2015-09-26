@@ -3,13 +3,17 @@ import {updateRecentChat} from './actions/session';
 import {fetchUsers} from './actions/userBrowser';
 
 export const startChat = store => (routerState, transition, done) => {
-  const partner = routerState.params.partner;
-  const currentUser = store.getState().session.currentUser.username;
+  function dispatchActions() {
+    const partner = routerState.params.partner;
+    const currentUser = store.getState().session.currentUser.username;
 
-  Promise.all([
-    store.dispatch(updateRecentChat({user: currentUser, partner, unread: false})),
-    store.dispatch(fetchMessages(partner))
-  ]).then(() => {done()})
+    Promise.all([
+      store.dispatch(updateRecentChat({user: currentUser, partner, unread: false})),
+      store.dispatch(fetchMessages(partner))
+    ]).then(() => {done()})
+  }
+
+  store.getState().chat.partner ? done() : dispatchActions();
 };
 
 export const leaveChat = store => () => {
