@@ -47,7 +47,7 @@ async function setUserSession(store, token) {
 }
 
 function template(context) {
-  const bundleUrl = process.env.NODE_ENV === 'production' ? '/bundle.js' : 'http://localhost:3001/assets/bundle.js';
+  const bundleUrl = process.env.NODE_ENV === 'production' ? '/bundle.js' : 'http://localhost:3001/bundle.js';
 
   return `
     <style>
