@@ -1,3 +1,3 @@
 export default {
-  DOMAIN: process.env.DOMAIN || 'http://localhost:3000'
+  DOMAIN: process.env.DOMAIN || process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:3000'
 };
