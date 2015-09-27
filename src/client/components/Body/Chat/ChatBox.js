@@ -18,10 +18,11 @@ export default class ChatBox extends Component {
       );
 
       const hasSubmessages = message.subMessages && message.subMessages.length;
+      const messageClass = `js-message ${hasSubmessages ? "js-has-nested-messages" : ""}`;
 
       return (
         <div key={message._id}>
-          <div className={hasSubmessages ? "js-nested-messages" : ""} data-id={message._id} onClick={this.toggle}>
+          <div className={messageClass} data-id={message._id} onClick={this.toggle}>
             {message.speaker} says: {message.content}
           </div>
           {message.expanded ? chatBox : null}

@@ -54,8 +54,10 @@ function template(context) {
       .js-recent-unread {
         background-color: pink;
       }
-      .js-nested-messages {
+      .js-has-nested-messages {
         background-color: yellow;
+      }
+      .js-message {
         cursor: pointer;
       }
     </style>
