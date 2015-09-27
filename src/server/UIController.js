@@ -56,6 +56,7 @@ function template(context) {
       }
       .js-nested-messages {
         background-color: yellow;
+        cursor: pointer;
       }
     </style>
     <div id="content">${context.reactString}</div>
