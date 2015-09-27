@@ -51,13 +51,15 @@ export default class ChatBox extends Component {
     evt.preventDefault();
 
     const messageInputEl = evt.target.querySelector('input');
-    const message = {
-      parent: this.props.parent,
-      partner: this.props.partner,
-      content: messageInputEl.value
-    };
+    if (messageInputEl.value !== '') {
+      const message = {
+        parent: this.props.parent,
+        partner: this.props.partner,
+        content: messageInputEl.value
+      };
 
-    this.props.sendMessage(message);
-    messageInputEl.value = '';
+      this.props.sendMessage(message);
+      messageInputEl.value = '';
+    }
   }
 }
