@@ -6,6 +6,7 @@ import socketio from 'socket.io';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import fetch from 'isomorphic-fetch';
+import compression from 'compression';
 import {DOMAIN} from '../config';
 import jwt from '../jwt';
 
@@ -23,6 +24,7 @@ server.listen(port, () => console.log(`server listening at ${port}`));
 app.use(express.static('static'));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(compression());
 
 //API routes
 import APIController from './APIController';
